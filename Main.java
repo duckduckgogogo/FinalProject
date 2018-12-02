@@ -2,7 +2,7 @@
 public class Main {
 
   //Initialize playerArrayList
-  ArrayList<Player> playerArrayList = new ArrayList<Player>;
+  ArrayList<Player> playerArrayList = new ArrayList<Player>();
 
 
   public static void Main (String[] args) {
@@ -48,7 +48,7 @@ public class Main {
   }
 
   public void endTurn () {
-    
+
   }
 
 }

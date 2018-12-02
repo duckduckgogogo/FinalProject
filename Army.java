@@ -13,6 +13,10 @@ public class Army {
     this.armyPosY = countryArray[country].POSY;
   }
 
+  public void getCountry () {
+    return country;
+  }
+
   public void setCountry (int a) {
     this.country = a;
   }

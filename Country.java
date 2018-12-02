@@ -8,7 +8,7 @@ public class Country {
   private final int POSY;
   private final Color MYCOLOR;
 
-  public Country (int a, int b, String c, Color d) {
+  public Country (int a, int b, String c, Color d, int x, int y) {
     this.numArmies = a;
     this.CONTINENT = b;
     this.NAME = c;

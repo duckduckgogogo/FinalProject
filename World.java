@@ -1,6 +1,8 @@
 public class World {
   final int HEIGHT;
   final int WIDTH;
+  final int COUNTRYHEIGHT;
+  final int COUNTRYWIDTH;
   final int TOTALNUMCOUNTRIES = 20;
   Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
   Card[] cardsArray = new Card[TOTALNUMCOUNTRIES];
@@ -49,8 +51,10 @@ public class World {
   }
 
   //Draw countries
-  public void drawCountries () {
-
+  public void drawCountries (Country[] c) {
+    for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
+      drawRect (c[i].getPosX(), c[i].getPosY(), COUNTRYHEIGHT, COUNTRYWIDTH);
+    }
   }
 
   //Draw numArmies
@@ -60,6 +64,6 @@ public class World {
 
   //Update world
   public void updateWorld () {
-    drawCountries();
+    drawCountries(countriesArray);
   }
 }

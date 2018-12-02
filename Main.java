@@ -1,13 +1,20 @@
 
 public class Main {
-
-  //Initialize playerArrayList
-  ArrayList<Player> playerArrayList = new ArrayList<Player>();
-
-
+	
+	
+	
+  
   public static void Main (String[] args) {
 
-    //Instantiate playerArrayList
+	  w = new World();
+	  
+	  //Initialize playerArrayList
+	  ArrayList<Player> playerArrayList = new ArrayList<Player>();
+
+	 
+
+	  
+	  //Instantiate playerArrayList
     for (int i = 0; i < numPlayers; i++) {
       playerArrayList.add(new Player);
     }

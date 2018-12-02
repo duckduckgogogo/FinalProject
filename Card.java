@@ -1,6 +1,7 @@
 public class Card {
   final private int COUNTRY;
   final private int NUMSTARS;
+  private boolean available;
 
   public Card (int a, int b) {
     this.COUNTRY = a;
@@ -15,5 +16,14 @@ public class Card {
     return NUMSTARS;
   }
 
+  public boolean getAvailability() {
+    return available;
+  }
+
+  /*
+  public void drawCard() {
+
+  }
+  */
 
 }

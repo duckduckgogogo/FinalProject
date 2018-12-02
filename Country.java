@@ -4,11 +4,15 @@ public class Country {
   private final int CONTINENT;
   //final boolean CAPITAL;
   final String NAME;
+  private final int POSX;
+  private final int POSY;
+  private final Color MYCOLOR;
 
-  public Country (int a, int b, String c) {
+  public Country (int a, int b, String c, Color d) {
     this.numArmies = a;
     this.CONTINENT = b;
     this.NAME = c;
+    this.MYCOLOR = d;
   }
 
   public int getNumArmies () {
@@ -17,6 +21,14 @@ public class Country {
 
   public int getContinent () {
     return CONTINENT;
+  }
+
+  public int getPosX () {
+
+  }
+
+  public int getPosY () {
+
   }
 
   public String getName () {

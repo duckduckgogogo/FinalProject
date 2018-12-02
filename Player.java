@@ -1,19 +1,31 @@
 public class Player {
 
+  private final Color MYPLAYERCOLOR;
   ArrayList<Card> myCardArrayList = new ArrayList<Card>();
+  ArrayList<Country> myCountryArrayList = new ArrayList<Country>();
   private int numCountries;
   private int numContinents;
 
-  public void addCard (Card c) {
+  public Player (Color c) {
+    this.MYPLAYERCOLOR = c;
+    this.numCountries = myCountryArrayList.size();
+    this.numContinents = 0;
+  }
 
+  public void addCard (Card c) {
+    myCardArrayList.add(c;
   }
 
   public void subtractCard (Card c) {
-
+    myCardArrayList.remove(c);
   }
 
-  public int countNumArmiesToCollect (Country[] c) {
-
+  public Color getMyColor () {
+    return MYPLAYERCOLOR;
   }
 
+  public int countNumArmiesToCollect (/*something*/) {
+    return (numCountries/3 + numContinents);
+  }
+  
 }

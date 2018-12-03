@@ -16,7 +16,7 @@ public class Army {
   public void getCountry () {
     return country;
   }
-
+hi
   public void setCountry (int a) {
     this.country = a;
   }

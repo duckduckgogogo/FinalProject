@@ -2,8 +2,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class World {
-  final int HEIGHT = 500;
-  final int WIDTH = 500;
   final int TOTALNUMCOUNTRIES = 20;
   Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
   Card[] cardsArray = new Card[TOTALNUMCOUNTRIES];

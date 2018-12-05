@@ -2,18 +2,29 @@ import java.util.Scanner;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.awt.Graphics;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import java.awt.Dimension;
 
-public class Main {
+public class Main extends JPanel {
 
-  /*public Main () {
-
-  }*/
-
+  final int HEIGHT = 500;
+  final int WIDTH = 500;
   public static Scanner keyboard = new Scanner (System.in);
+  World world;
 
+  public Main () {
+    world = new World();
+    this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+  }
 
   public static void main (String[] args) {
-	  World w = new World();
+	  JFrame frame = new JFrame ("Risky Business.");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    Main mainInstance = new Main();
+    frame.setContentPane(mainInstance);
+    frame.pack();
+    frame.setVisible(true);
 
 	  //Initialize playerArray
 	  ArrayList<Player> playerArrayList = new ArrayList<Player>();
@@ -42,6 +53,15 @@ public class Main {
         i++;
       }
     }*/
+    //Graphics g;
+    //w.drawCountries(g);
+  }
+
+  public void paintComponent (Graphics g) {
+    super.paintComponent(g);
+    g.setColor(Color.BLACK);
+    g.fillRect(0,0, HEIGHT, WIDTH);
+    world.drawCountries(g);
   }
 
   public void play (Player p) {

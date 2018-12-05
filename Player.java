@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.awt.Color;
+
 public class Player {
 
   private final Color MYPLAYERCOLOR;
@@ -8,7 +11,7 @@ public class Player {
 
   public Player (Color c) {
     this.MYPLAYERCOLOR = c;
-    this.numCountries = myCountryArrayList.size();
+    this.numCountries = 0;
     this.numContinents = 0;
   }
 

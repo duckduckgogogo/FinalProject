@@ -12,7 +12,10 @@ public class Main {
 
 	  //Instantiate playerArrayList
     for (int i = 0; i < numPlayers; i++) {
-      playerArrayList.add(new Player);
+      //DIALOG BOX
+      System.out.println ("Color?");
+      Color c = scan.nextLine().parseColor();
+      playerArrayList.add(new Player(c));
     }
 
     while (GAMEOVER == false) {

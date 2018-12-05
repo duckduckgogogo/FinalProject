@@ -1,4 +1,4 @@
-public class Army {
+/*public class Army {
   private final int OWNER;
   private int country;
   private final Color MYARMYCOLOR;
@@ -16,11 +16,11 @@ public class Army {
   public void getCountry () {
     return country;
   }
-hi
+
   public void setCountry (int a) {
     this.country = a;
   }
 
 
 
-}
+}*/

@@ -13,7 +13,7 @@ public class Player {
   }
 
   public void addCard (Card c) {
-    myCardArrayList.add(c;
+    myCardArrayList.add(c);
   }
 
   public void subtractCard (Card c) {
@@ -27,5 +27,5 @@ public class Player {
   public int countNumArmiesToCollect (/*something*/) {
     return (numCountries/3 + numContinents);
   }
-  
+
 }

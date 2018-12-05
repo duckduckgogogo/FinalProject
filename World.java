@@ -1,8 +1,6 @@
 public class World {
   final int HEIGHT;
   final int WIDTH;
-  final int COUNTRYHEIGHT;
-  final int COUNTRYWIDTH;
   final int TOTALNUMCOUNTRIES = 20;
   Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
   Card[] cardsArray = new Card[TOTALNUMCOUNTRIES];
@@ -19,7 +17,7 @@ public class World {
 
   //Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
   private Country[] setCountries (Country[] c) {
-    c[0] = new Country (5, 0, "Val", d);
+    c[0] = new Country (5, 0, "Val", color);
     c[1] = new Country ();
     //SHU AMANO
     //TEXT FILE
@@ -40,7 +38,7 @@ public class World {
 
     for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
       for (int j = 0; j < TOTALNUMCOUNTRIES; j++) {
-        a[i][j] = fileScanner.nextInt(); //CHECK
+        a[i][j] = nextInt(); //CHECK
       }
     }
 
@@ -51,19 +49,14 @@ public class World {
   }
 
   //Draw countries
-  public void drawCountries (Country[] c) {
+  public void drawCountries (Graphics g) {
     for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
-      drawRect (c[i].getPosX(), c[i].getPosY(), COUNTRYHEIGHT, COUNTRYWIDTH);
+      countriesArray[i].drawCountry(g);
     }
   }
 
-  //Draw numArmies
-  public void drawArmies () {
-
-  }
-
   //Update world
-  public void updateWorld () {
+  /*public void updateWorld () {
     drawCountries(countriesArray);
-  }
+  }*/
 }

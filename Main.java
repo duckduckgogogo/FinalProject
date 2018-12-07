@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
 
 public class Main extends JPanel {
 
@@ -19,7 +20,9 @@ public class Main extends JPanel {
   }
 
   public static void main (String[] args) {
-	  JFrame frame = new JFrame ("Risky Business.");
+
+    //Frame
+    JFrame frame = new JFrame ("Risky Business.");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     Main mainInstance = new Main();
     frame.setContentPane(mainInstance);
@@ -27,16 +30,14 @@ public class Main extends JPanel {
     frame.setVisible(true);
 
 	  //Initialize playerArray
+    Object[] numPlayerOptions = {2, 3, 4, 5, 6};
+    Object numPlayerDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
 	  ArrayList<Player> playerArrayList = new ArrayList<Player>();
 
-	  //Instantiate playerArrayList
-    //DIALOG BOX
-    System.out.println ("Number of players: ");
-    final int NUMPLAYERS = keyboard.nextInt();
     String s;
     Color c;
 
-    for (int i = 0; i < NUMPLAYERS; i++) {
+    for (int i = 0; i < 0; i++) {
       //DIALOG BOX
       System.out.println ("Color?");
       s = keyboard.nextLine();
@@ -57,6 +58,7 @@ public class Main extends JPanel {
     //w.drawCountries(g);
   }
 
+//WHAT DOES PAINTCOMPONENT DO?
   public void paintComponent (Graphics g) {
     super.paintComponent(g);
     g.setColor(Color.BLACK);

@@ -15,12 +15,15 @@ public class Country {
   private Color armyColor;
   //private int owner;
 
-  public Country (String b, Color c, int d, int e /*int[] a*/) {
+  public Country (String b, int d, int e /*int[] a*/) {
     this.numArmies = 0;
     this.NAME = b;
-    this.MYCOLOR = c;
+    //this.MYCOLOR = c;
     this.POSX = d;
     this.POSY = e;
+    this.MYCOLOR = Color.BLUE;
+    //Set color based on continent
+
     /*this.CONTINENT = a[0].parseInt();
     this.NAME = a[1];
     this.MYCOLOR = a[2].parseColor();

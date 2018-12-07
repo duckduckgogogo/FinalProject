@@ -18,7 +18,7 @@ public class World {
 
   //Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
   private Country[] setCountries (Country[] c) {
-    c[0] = new Country ("Val", Color.BLUE, 100, 100);
+    c[0] = new Country ("Val", 100, 100);
     //SHU AMANO
     //TEXT FILE
     return c;

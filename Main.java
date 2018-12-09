@@ -13,6 +13,8 @@ public class Main extends JPanel {
   final int WIDTH = 500;
   public static Scanner keyboard = new Scanner (System.in);
   World world;
+  static boolean GAMEOVER = false;
+  static int state = 0; //Necessary?
 
   public Main () {
     world = new World();
@@ -31,29 +33,43 @@ public class Main extends JPanel {
 
 	  //Initialize playerArray
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
-    Object numPlayerDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
-	  ArrayList<Player> playerArrayList = new ArrayList<Player>();
-
-    String s;
-    Color c;
-
-    for (int i = 0; i < 0; i++) {
-      //DIALOG BOX
-      System.out.println ("Color?");
-      s = keyboard.nextLine();
-      //c = Color.parseColor(s);
-      playerArrayList.add(new Player(Color.GREEN));
+    Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
+    final int NUMPLAYERS = (int)numPlayersDialog;
+    Player[] playerArray = new Player[NUMPLAYERS];
+    for (int i = 0; i < NUMPLAYERS; i++) {
+      playerArray[i] = new Player(i);
     }
 
-    /*while (GAMEOVER == false) {
-      play(playerArrayList.get(i));
-      if (i == numPlayers) {
-        i = 0;
+    //Initially assignment of countries to players
+    int order = 0;
+    for (int i = 0; i < World.TOTALNUMCOUNTRIES; i++) {
+
+      World.countriesArray[chooseCountry()].setOwner(playerArray[order].MYNUM);
+
+      if (order == (NUMPLAYERS-1)) {
+        order = 0;
       }
       else {
-        i++;
+        order++;
       }
-    }*/
+    }
+
+    //Game play
+
+    order = 0;
+    while (GAMEOVER == false) {
+      play(playerArray[order]);
+      if (order == (NUMPLAYERS-1)) {
+        order = 0;
+      }
+      else {
+        order++;
+      }
+    }
+
+
+
+
     //Graphics g;
     //w.drawCountries(g);
   }
@@ -66,31 +82,40 @@ public class Main extends JPanel {
     world.drawCountries(g);
   }
 
-  public void play (Player p) {
+  //SHU: MOUSE ACTION LISTENER
+  public static int chooseCountry () {
+    /*
+    if not a country, then print "Not a country"
+    else return country
+    */
+    return World.countriesArray[0].getArrayPos();
+  }
+
+  public static void play (Player p) {
 
   }
 
-  public void collectArmies() {
+  public static void collectArmies() {
 
   }
 
-  public void cashCards() {
+  public static void cashCards() {
 
   }
 
-  public void placeArmies() {
+  public static void placeArmies() {
 
   }
 
-  public void attack() {
+  public static void attack() {
 
   }
 
-  public void moveArmies() {
+  public static void moveArmies() {
 
   }
 
-  public void endTurn () {
+  public static void endTurn () {
 
   }
 

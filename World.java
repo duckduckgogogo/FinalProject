@@ -2,10 +2,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class World {
-  final int TOTALNUMCOUNTRIES = 20;
-  Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
-  Card[] cardsArray = new Card[TOTALNUMCOUNTRIES];
-  final int[][] CONNECTIONS = new int[TOTALNUMCOUNTRIES][TOTALNUMCOUNTRIES]; //final?
+  static final int TOTALNUMCOUNTRIES = 5;
+  static Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
+  static Card[] cardsArray = new Card[TOTALNUMCOUNTRIES];
+  static final int[][] CONNECTIONS = new int[TOTALNUMCOUNTRIES][TOTALNUMCOUNTRIES]; //final?
 
   //Constructor
   public World () {
@@ -18,7 +18,11 @@ public class World {
 
   //Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
   private Country[] setCountries (Country[] c) {
-    c[0] = new Country ("Val", 100, 100);
+    c[0] = new Country ("A", 10, 10);
+    c[1] = new Country ("B", 25, 25);
+    c[2] = new Country ("C", 40, 40);
+    c[3] = new Country ("D", 55, 55);
+    c[4] = new Country ("E", 70, 70);
     //SHU AMANO
     //TEXT FILE
     return c;

@@ -9,10 +9,24 @@ public class Player {
   private int numCountries;
   private int numContinents;
 
-  public Player (Color c) {
-    this.MYPLAYERCOLOR = c;
+  public Player (int i) {
     this.numCountries = 0;
     this.numContinents = 0;
+    if (i == 0) {
+      MYPLAYERCOLOR = Color.RED;
+    }
+    else if (i == 1) {
+      MYPLAYERCOLOR = Color.ORANGE;
+    }
+    else if (i == 2) {
+      MYPLAYERCOLOR = Color.YELLOW;
+    }
+    else if (i == 3) {
+      MYPLAYERCOLOR = Color.GREEN;
+    }
+    else {
+      MYPLAYERCOLOR = Color.BLUE;
+    }
   }
 
   public void addCard (Card c) {

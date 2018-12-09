@@ -13,6 +13,7 @@ public class Main extends JPanel {
   final int WIDTH = 500;
   public static Scanner keyboard = new Scanner (System.in);
   World world;
+  boolean GAMEOVER = false;
 
   public Main () {
     world = new World();
@@ -31,29 +32,24 @@ public class Main extends JPanel {
 
 	  //Initialize playerArray
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
-    Object numPlayerDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
-	  ArrayList<Player> playerArrayList = new ArrayList<Player>();
+    Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
+    final int NUMPLAYERS = (int)numPlayersDialog;
+    Player[] playerArray = new Player[numPlayersDialog];
 
-    String s;
-    Color c;
-
-    for (int i = 0; i < 0; i++) {
-      //DIALOG BOX
-      System.out.println ("Color?");
-      s = keyboard.nextLine();
-      //c = Color.parseColor(s);
-      playerArrayList.add(new Player(Color.GREEN));
+    for (int i = 0; i < numPlayersDialog; i++) {
+      playerArray[i] = new Player(i);
     }
 
-    /*while (GAMEOVER == false) {
-      play(playerArrayList.get(i));
-      if (i == numPlayers) {
-        i = 0;
+    int order = 0;
+    while (GAMEOVER == false) {
+      play(playerArray[order]);
+      if (order == NUMPLAYERS) {
+        order = 0;
       }
       else {
-        i++;
+        order++;
       }
-    }*/
+    }
     //Graphics g;
     //w.drawCountries(g);
   }

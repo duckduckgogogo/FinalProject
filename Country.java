@@ -74,6 +74,13 @@ public class Country {
     g.setColor(armyColor);
   }
 
+  public boolean isIn (int x, int y) {
+    if ((x >= POSX) && (x <= (POSX+COUNTRYWIDTH)) && (y >= POSY) && (y <= (POSY + COUNTRYHEIGHT)) {
+      return true;
+    }
+    return false;
+  }
+
 
 
 

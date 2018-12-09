@@ -9,11 +9,12 @@ public class Country {
   final String NAME;
   private final int POSX;
   private final int POSY;
-  final int COUNTRYHEIGHT = 100;
-  final int COUNTRYWIDTH = 100;
+  final int COUNTRYHEIGHT = 10;
+  final int COUNTRYWIDTH = 10;
   private final Color MYCOLOR;
   private Color armyColor;
-  //private int owner;
+  private int owner = 10;
+  final private int ARRAYPOS;
 
   public Country (String b, int d, int e /*int[] a*/) {
     this.numArmies = 0;
@@ -22,6 +23,8 @@ public class Country {
     this.POSX = d;
     this.POSY = e;
     this.MYCOLOR = Color.BLUE;
+    this.ARRAYPOS = 0;
+
     //Set color based on continent
 
     /*this.CONTINENT = a[0].parseInt();
@@ -30,6 +33,18 @@ public class Country {
     this.POSX = a[3].parseInt();
     this.POSY = a[4].parseInt();*/
     //this.owner = e;
+  }
+
+  public int getArrayPos () {
+    return ARRAYPOS;
+  }
+
+  public int getOwner () {
+    return owner;
+  }
+
+  public void setOwner (int i) {
+    owner = i;
   }
 
   public int getNumArmies () {
@@ -75,7 +90,7 @@ public class Country {
   }
 
   public boolean isIn (int x, int y) {
-    if ((x >= POSX) && (x <= (POSX+COUNTRYWIDTH)) && (y >= POSY) && (y <= (POSY + COUNTRYHEIGHT)) {
+    if ((x >= POSX) && (x <= (POSX+COUNTRYWIDTH)) && (y >= POSY) && (y <= (POSY + COUNTRYHEIGHT))) {
       return true;
     }
     return false;

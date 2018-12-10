@@ -6,9 +6,12 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class Main extends JPanel {
-
+public class Main extends JPanel implements MouseListener{
+  static int mouseX;
+  static int mouseY;
   final int HEIGHT = 500;
   final int WIDTH = 500;
   public static Scanner keyboard = new Scanner (System.in);
@@ -19,6 +22,7 @@ public class Main extends JPanel {
   public Main () {
     world = new World();
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    addMouseListener(this);
   }
 
   public static void main (String[] args) {
@@ -84,11 +88,26 @@ public class Main extends JPanel {
 
   //SHU: MOUSE ACTION LISTENER
   public static int chooseCountry () {
-    /*
+    mouseX = -1;
+    mouseY = -1;
+    while (true) {
+    	for (int i = 0; i < World.TOTALNUMCOUNTRIES; i++) {
+    		int x = World.countriesArray[i].getPosX();
+    		int y = World.countriesArray[i].getPosY();
+    		// CHANGE COUNTRY HEIGHT VALUE
+    		int width = World.countriesArray[i].COUNTRYWIDTH;
+    		int height = World.countriesArray[i].COUNTRYHEIGHT;
+    		if ((x < mouseX) && (mouseX <x + width) && (y < mouseY) && (mouseY < y + height)) {
+        	return i;
+    		}
+    	}
+    	System.out.println("That is not a country");
+    }
+	  
+	/*
     if not a country, then print "Not a country"
     else return country
     */
-    return World.countriesArray[0].getArrayPos();
   }
 
   public static void play (Player p) {
@@ -119,4 +138,21 @@ public class Main extends JPanel {
 
   }
 
+@Override
+	public void mouseClicked(MouseEvent e) {
+	}
+@Override
+	public void mouseEntered(MouseEvent e) {
+}
+@Override
+	public void mouseExited(MouseEvent e) {
+	}
+@Override
+	public void mousePressed(MouseEvent e) {
+		mouseX = e.getX();
+		mouseY = e.getY();
+	}
+@Override
+	public void mouseReleased(MouseEvent e) {		
+	}
 }

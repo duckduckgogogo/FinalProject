@@ -71,9 +71,6 @@ public class Main extends JPanel implements MouseListener{
       }
     }
 
-
-
-
     //Graphics g;
     //w.drawCountries(g);
   }
@@ -87,27 +84,36 @@ public class Main extends JPanel implements MouseListener{
   }
 
   //SHU: MOUSE ACTION LISTENER
-  public static int chooseCountry () {
+  public static int chooseCountry(){
     mouseX = -1;
     mouseY = -1;
+    
+    int tempX = -1;
+    int tempY = -1;
+    
     while (true) {
-    	for (int i = 0; i < World.TOTALNUMCOUNTRIES; i++) {
-    		int x = World.countriesArray[i].getPosX();
-    		int y = World.countriesArray[i].getPosY();
-    		// CHANGE COUNTRY HEIGHT VALUE
-    		int width = World.countriesArray[i].COUNTRYWIDTH;
-    		int height = World.countriesArray[i].COUNTRYHEIGHT;
-    		if ((x < mouseX) && (mouseX <x + width) && (y < mouseY) && (mouseY < y + height)) {
-        	return i;
-    		}
+    	if ((mouseX == tempX) && (mouseY == tempY)) {     
+    	    try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
     	}
-    	System.out.println("That is not a country");
-    }
-	  
-	/*
-    if not a country, then print "Not a country"
-    else return country
-    */
+    	else {
+    		tempX = mouseX;
+        	tempY = mouseY;
+    		for (int i = 0; i < World.TOTALNUMCOUNTRIES; i++) {
+    			int x = World.countriesArray[i].getPosX();
+    			int y = World.countriesArray[i].getPosY();
+    			// CHANGE COUNTRY HEIGHT VALUE
+    			if (World.countriesArray[i].isIn(mouseX,mouseY)) {
+    				System.out.println(i);
+    				return i;
+    			}
+    		}
+    		System.out.println("That is not a country. Please click on a country."); 
+    	}
+    } 
   }
 
   public static void play (Player p) {

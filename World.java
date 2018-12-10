@@ -54,7 +54,7 @@ public class World {
 
   //Draw countries
   public void drawCountries (Graphics g) {
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
       countriesArray[i].drawCountry(g);
     }
   }

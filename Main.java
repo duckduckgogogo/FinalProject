@@ -32,7 +32,7 @@ public class Main extends JPanel {
     frame.pack();
     frame.setVisible(true);
 
-	  //Initialize playerArray
+    //Initialize playerArray
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
     Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
     NUMPLAYERS = (int)numPlayersDialog;
@@ -58,6 +58,8 @@ public class Main extends JPanel {
     while (GAMEOVER == false) {
       play(playerArray[order]);
 
+      order = endTurn(order);
+
     }
 
 
@@ -67,7 +69,7 @@ public class Main extends JPanel {
     //w.drawCountries(g);
   }
 
-//WHAT DOES PAINTCOMPONENT DO?
+  //WHAT DOES PAINTCOMPONENT DO?
   public void paintComponent (Graphics g) {
     super.paintComponent(g);
     g.setColor(Color.BLACK);

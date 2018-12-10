@@ -87,6 +87,7 @@ public class Country {
     g.setColor(MYCOLOR);
     g.fillRect(POSX, POSY, COUNTRYHEIGHT, COUNTRYWIDTH);
     g.setColor(armyColor);
+    //Draw army
   }
 
   public boolean isIn (int x, int y) {

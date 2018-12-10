@@ -11,12 +11,14 @@ public class Player {
   private static int deckCounter = 0;
   final int MYNUM;
   private int numCards;
+  private int numArmies;
 
   public Player (int i) {
     this.numCountries = 0;
     this.numContinents = 0;
     this.numCards = 0;
     MYNUM = i;
+    this.numArmies = 0;
 
     if (i == 0) {
       MYPLAYERCOLOR = Color.RED;
@@ -51,6 +53,14 @@ public class Player {
 
   public int getNumCards () {
     return numCards;
+  }
+
+  public int getNumArmies () {
+    return numArmies;
+  }
+
+  public void addArmies (int i) {
+    numArmies += i;
   }
 
   public int getNumCountries() {

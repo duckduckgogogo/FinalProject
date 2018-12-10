@@ -15,6 +15,7 @@ public class Main extends JPanel {
   World world;
   static boolean GAMEOVER = false;
   static int state = 0; //Necessary?
+  static int NUMPLAYERS;
 
   public Main () {
     world = new World();
@@ -34,7 +35,7 @@ public class Main extends JPanel {
 	  //Initialize playerArray
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
     Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
-    final int NUMPLAYERS = (int)numPlayersDialog;
+    NUMPLAYERS = (int)numPlayersDialog;
     Player[] playerArray = new Player[NUMPLAYERS];
     for (int i = 0; i < NUMPLAYERS; i++) {
       playerArray[i] = new Player(i);
@@ -43,9 +44,7 @@ public class Main extends JPanel {
     //Initially assignment of countries to players
     int order = 0;
     for (int i = 0; i < World.TOTALNUMCOUNTRIES; i++) {
-
       World.countriesArray[chooseCountry()].setOwner(playerArray[order].MYNUM);
-
       if (order == (NUMPLAYERS-1)) {
         order = 0;
       }
@@ -55,16 +54,10 @@ public class Main extends JPanel {
     }
 
     //Game play
-
     order = 0;
     while (GAMEOVER == false) {
       play(playerArray[order]);
-      if (order == (NUMPLAYERS-1)) {
-        order = 0;
-      }
-      else {
-        order++;
-      }
+
     }
 
 
@@ -99,8 +92,10 @@ public class Main extends JPanel {
 
   }
 
-  public static void cashCards() {
-
+  //Cash cards: add armies, subtract cards
+  public static void cashCards(Player p) {
+    p.addArmies(p.getNumCards());
+    p.subtractCard();
   }
 
   public static void placeArmies() {
@@ -115,8 +110,13 @@ public class Main extends JPanel {
 
   }
 
-  public static void endTurn () {
-
+  public static int endTurn (int order) {
+    if (order == (NUMPLAYERS-1)) {
+      order = 0;
+    }
+    else {
+      order++;
+    }
+    return order;
   }
-
 }

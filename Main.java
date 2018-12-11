@@ -15,18 +15,18 @@ public class Main extends JPanel implements MouseListener{
   final int HEIGHT = 500;
   final int WIDTH = 500;
   public static Scanner keyboard = new Scanner (System.in);
-  World world;
+  static World w;
   static boolean GAMEOVER = false;
   static int state = 0; //Necessary?
+  static int NUMPLAYERS;
 
   public Main () {
-    world = new World();
+    w = new World();
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     addMouseListener(this);
   }
 
   public static void main (String[] args) {
-
     //Frame
     JFrame frame = new JFrame ("Risky Business.");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,10 +46,8 @@ public class Main extends JPanel implements MouseListener{
 
     //Initially assignment of countries to players
     int order = 0;
-    for (int i = 0; i < World.TOTALNUMCOUNTRIES; i++) {
-
-      World.countriesArray[chooseCountry()].setOwner(playerArray[order].MYNUM);
-
+    for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
+      w.countriesArray[chooseCountry()].setOwner(playerArray[order].getMyNum());
       if (order == (NUMPLAYERS-1)) {
         order = 0;
       }
@@ -63,12 +61,7 @@ public class Main extends JPanel implements MouseListener{
     order = 0;
     while (GAMEOVER == false) {
       play(playerArray[order]);
-      if (order == (NUMPLAYERS-1)) {
-        order = 0;
-      }
-      else {
-        order++;
-      }
+      order = endTurn(order);
     }
 
     //Graphics g;
@@ -80,7 +73,7 @@ public class Main extends JPanel implements MouseListener{
     super.paintComponent(g);
     g.setColor(Color.BLACK);
     g.fillRect(0,0, HEIGHT, WIDTH);
-    world.drawCountries(g);
+    w.drawCountries(g);
   }
 
   //SHU: MOUSE ACTION LISTENER
@@ -102,11 +95,11 @@ public class Main extends JPanel implements MouseListener{
       else {
         tempX = mouseX;
         tempY = mouseY;
-        for (int i = 0; i < World.TOTALNUMCOUNTRIES; i++) {
-          int x = World.countriesArray[i].getPosX();
-          int y = World.countriesArray[i].getPosY();
+        for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
+          int x = w.countriesArray[i].getPosX();
+          int y = w.countriesArray[i].getPosY();
           // CHANGE COUNTRY HEIGHT VALUE
-          if (World.countriesArray[i].isIn(mouseX,mouseY)) {
+          if (w.countriesArray[i].isIn(mouseX,mouseY)) {
             System.out.println(i);
             return i;
           }
@@ -120,19 +113,47 @@ public class Main extends JPanel implements MouseListener{
 
   }
 
-  public static void collectArmies() {
+  /*public static void collectArmies(Player p) {
+    int i = p.getNumCountries() /3 + p.getNumContinents();
 
+    //If cash cards... BUTTON
+    i += cashCards(p);
+    return i;
+  }*/
+
+  //Cash cards: add armies, subtract cards
+  public static int cashCards(Player p) {
+    p.subtractCard();
+    return p.getNumCards()/3;
   }
 
-  public static void cashCards() {
+  //MOUSE LISTENER
+  public static void placeArmies(Player p) {
+    int count = p.countNumArmiesToCollect();
+    //If true...
+    count += cashCards(p);
+    int temp;
 
+    for (int i = 0; i < count; i++) {
+      while (w.countriesArray[chooseCountry()].getOwner() != p.getMyNum()) {
+        System.out.println ("Choose one of your countries.");
+      }
+      w.countriesArray[chooseCountry()].addArmy(1);
+    }
   }
 
-  public static void placeArmies() {
+  public static void attack(Player p) {
+    while (w.countriesArray[chooseCountry()].getOwner() != p.getMyNum()) {
+      System.out.println ("Choose one of your own countries.");
+    }
 
-  }
+    //You have chosen country a.
+    //Choose country b.
+    //While isConnected == false, re-choose.
+    /*
+    for (int i = 0; i < countryArray[a].getNumArmies())
 
-  public static void attack() {
+    */
 
   }
 
@@ -140,8 +161,14 @@ public class Main extends JPanel implements MouseListener{
 
   }
 
-  public static void endTurn () {
-
+  public static int endTurn (int o) {
+    if (o == (NUMPLAYERS-1)) {
+      return 0;
+    }
+    else {
+      o++;
+    }
+    return o;
   }
 
   @Override

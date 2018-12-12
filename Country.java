@@ -17,7 +17,7 @@ public class Country {
   final private int ARRAYPOS;
 
   public Country(String b, int d, int e, int width, int height, int continent) /*int[] a*/ {
-    this.numArmies = 0;
+    this.numArmies = 5;
     this.CONTINENT = continent;
     this.COUNTRYHEIGHT = height;
     this.COUNTRYWIDTH = width;

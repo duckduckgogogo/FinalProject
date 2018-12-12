@@ -17,7 +17,7 @@ public class Country {
   final private int ARRAYPOS;
 
   public Country(String b, int d, int e, int width, int height, int continent) /*int[] a*/ {
-    this.numArmies = 5;
+    this.numArmies = 0;
     this.CONTINENT = continent;
     this.COUNTRYHEIGHT = height;
     this.COUNTRYWIDTH = width;
@@ -127,8 +127,13 @@ public class Country {
   public void drawCountry(Graphics g) {
     g.setColor(MYCOLOR);
     g.fillRect(POSX, POSY, COUNTRYWIDTH, COUNTRYHEIGHT);
-    g.setColor(Color.WHITE);
-    g.drawString(Integer.toString(numArmies), POSX, POSY+30);
+    if	(owner == 10) {
+    	g.setColor(Color.WHITE);
+    	g.drawString(Integer.toString(numArmies), POSX, POSY+30);    
+    } else {
+    	g.setColor(armyColor);
+    	g.drawString(Integer.toString(numArmies), POSX, POSY+30);
+    }
     g.drawString(NAME, POSX, POSY+10);
   }
 

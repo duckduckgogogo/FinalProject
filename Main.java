@@ -163,6 +163,8 @@ public class Main extends JPanel implements MouseListener{
     int AUse2 = 0;
     int DUse1 = 0;
     int DUse2 = 0;
+
+    //Roll dice based on number of armies
     if (tempA.getNumArmies() > 2) {
       A2 = (int)(Math.random()*5+1.0);
       if (tempA.getNumArmies() > 3) {
@@ -173,8 +175,56 @@ public class Main extends JPanel implements MouseListener{
       D2 = (int)(Math.random()*5+1.0);
     }
 
+    //Order and match dice
+    //D1 biggest
+    if (D1 >= D2) {
+        DUse1 = D1;
+        DUse2 = D2;
+    }
+    //D2 biggest
+    else {
+      DUse1 = D2;
+      DUse2 = D1;
+    }
+    //A1 biggest
+    if ((A1 >= A2) && (A1 >= A3)) {
+      AUse1 = A1;
+      if (A2 >= A3) {
+        AUse2 = A2;
+        AUse3 = A3;
+      }
+      else {
+        AUse2 = A3;
+        AUse3 = A2;
+      }
+    }
+    //A2 biggest
+    else if ((A2 >= A1) && (A2 >= A3)) {
+      AUse1 = A2;
+      if (A1 >= A3) {
+        AUse2 = A1;
+        AUse3 = A3;
+      }
+      else {
+        AUse2 = A3;
+        AUse3 = A1;
+      }
+    }
+    //A3 biggest
+    else if ((A3 >= A1) && (A3 >= A2)) {
+      AUse1 = A1;
+      if (A1 >= A2) {
+        AUse2 = A1;
+        AUse3 = A2;
+      }
+      else {
+        AUse2 = A2;
+        AUse3 = A1;
+      }
+    }
+
     System.out.println ("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from " + tempA.getName() + " to " + tempD.getName() + ".");
-    //System.out.println ("Player " + tempA.getOwner() + " rolled a " + intA + " and Player " + tempD.getOwner() + " rolled a " + intB + ".");
+    
 
   }
 

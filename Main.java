@@ -292,12 +292,8 @@ public class Main extends JPanel implements MouseListener{
     return o++;
   }
 
-<<<<<<< HEAD
-  public static void checkWin() {
-=======
   public static boolean checkWin () {
 
->>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
   }
 
   @Override

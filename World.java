@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.util.Scanner;
 
 public class World {
   static final int TOTALNUMCOUNTRIES = 5;
@@ -18,11 +21,11 @@ public class World {
 
   //Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
   private Country[] setCountries (Country[] c) {
-    c[0] = new Country ("A", 10, 10);
-    c[1] = new Country ("B", 25, 25);
-    c[2] = new Country ("C", 40, 40);
-    c[3] = new Country ("D", 55, 55);
-    c[4] = new Country ("E", 70, 70);
+    c[0] = new Country ("A", 10, 10, 30, 10);
+    c[1] = new Country ("B", 300, 250, 30, 50);
+    c[2] = new Country ("C", 40, 40, 30, 15);
+    c[3] = new Country ("D", 100, 120, 30, 70);
+    c[4] = new Country ("E", 70, 70, 10, 40);
     //SHU AMANO
     //TEXT FILE
     return c;

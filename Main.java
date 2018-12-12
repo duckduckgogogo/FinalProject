@@ -158,7 +158,7 @@ public class Main extends JPanel implements MouseListener{
     System.out.println ("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from " + tempA.getName() + " to " + tempD.getName() + ".");
 
     int A1 = (int)(Math.random()*5+1.0);
-    System.out.print ("Player " + tempA.getOwner() + " rolled a " + A1)
+    System.out.print ("Player " + tempA.getOwner() + " rolled a " + A1);
     int A2 = 0;
     int A3 = 0;
     int AUse1 = 0;

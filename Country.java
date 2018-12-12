@@ -41,8 +41,8 @@ public class Country {
     } else {
     	this.MYCOLOR = Color.PINK;
     }
-       
-    	   
+
+
     //Set color based on continent
 
     /*this.CONTINENT = a[0].parseInt();
@@ -111,7 +111,7 @@ public class Country {
   public Color getColor () {
     return MYCOLOR;
   }
-  
+
   public int getHeight () {
 	  return COUNTRYHEIGHT;
   }
@@ -119,7 +119,7 @@ public class Country {
   public int getWidth () {
 	  return COUNTRYWIDTH;
   }
-  
+
   public void setArmyColor (Color c) {
     armyColor = c;
   }
@@ -127,8 +127,9 @@ public class Country {
   public void drawCountry(Graphics g) {
     g.setColor(MYCOLOR);
     g.fillRect(POSX, POSY, COUNTRYWIDTH, COUNTRYHEIGHT);
-    g.setColor(armyColor);
-    g.drawString(Integer.toString(numArmies), POSX, POSY);
+    g.setColor(Color.WHITE);
+    g.drawString(Integer.toString(numArmies), POSX, POSY+30);
+    g.drawString(NAME, POSX, POSY+10);
   }
 
   public boolean isIn (int x, int y) {

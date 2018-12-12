@@ -289,6 +289,10 @@ public class Main extends JPanel implements MouseListener{
     return o++;
   }
 
+  public static boolean checkWin () {
+    
+  }
+
   @Override
   public void mouseClicked(MouseEvent e) {
   }

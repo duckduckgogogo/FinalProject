@@ -46,8 +46,10 @@ public class Main extends JPanel implements MouseListener {
     }
 
     //Initial assignment of countries to players
+    System.out.println ("Players take turns claiming a country.");
     int order = 0;
     int tempC;
+    
     while (w.isAllClaimed(w.countriesArray) == false) {
         for (int j = 0; j < NUMPLAYERS; j++) {
         	System.out.println("Please select a country you wish to claim, Player " + (j + 1) + ".");
@@ -62,10 +64,8 @@ public class Main extends JPanel implements MouseListener {
         		break;
         	}
         }
+      System.out.println ("All the countries have been chosen.");
     }	
-    
-
-    order=endTurn(order);
     
 
 	// Game play
@@ -121,97 +121,175 @@ public class Main extends JPanel implements MouseListener {
     }
   }
 
-	public static void play(Player p) {
-		placeArmies(p);
-		attack(p);
-	}
 
-	// Cash cards: add armies, subtract cards
-	public static int cashCards(Player p) {
-		int i = p.getNumCards();
-		p.subtractCards();
-		return i;
-	}
+  public static void play (Player p) {
+    System.out.println ("Player " + p.getMyNum() + "'s turn.");
+    placeArmies(p);
+    attack(p);
+  }
 
-	// MOUSE LISTENER
-	public static void placeArmies(Player p) {
-		int count = p.countNumArmiesToCollect();
-		// If true...
-		count += cashCards(p);
-		Country tempC;
-		for (int i = 0; i < count; i++) {
-			tempC = w.countriesArray[chooseCountry()];
-			while (tempC.getOwner() != p.getMyNum()) {
-				System.out.println("Choose one of your own countries.");
-				tempC = w.countriesArray[chooseCountry()];
-			}
-			tempC.addArmy(1);
-		}
-	}
+  //Cash cards: add armies, subtract cards
+  public static int cashCards(Player p) {
+    int i = p.getNumCards();
+    p.subtractCards();
+    return i;
+  }
 
-	public static void attack(Player p) {
-		System.out.println("Choose a country from which to attack. ");
-		Country tempA = w.countriesArray[chooseCountry()];
-		while ((tempA.getOwner() != p.getMyNum()) || (tempA.getNumArmies() == 1)) {
-			System.out.println("Invalid: Attack from one of your countries with 2+ armies.");
-			tempA = w.countriesArray[chooseCountry()];
-		}
-		System.out.println("Choose a country to attack. ");
-		Country tempD = w.countriesArray[chooseCountry()];
-		while (tempD.getOwner() == p.getMyNum() /* || Connection */) {
-			System.out.println("Choose someone else's country to attack.");
-			tempD = w.countriesArray[chooseCountry()];
-		}
-		/*
-		 * int A1 = (int)(Math.random()*5+1.0); int A2 = 0; int A3 = 0; int D1 =
-		 * (int)(Math.random()*5+1.0); int D2 = 0; int AUse1 = 0; int AUse2 = 0; int
-		 * DUse1 = 0; int DUse2 = 0;
-		 * 
-		 * //Roll dice based on number of armies if (tempA.getNumArmies() > 2) { A2 =
-		 * (int)(Math.random()*5+1.0); if (tempA.getNumArmies() > 3) { A3 =
-		 * (int)(Math.random()*5+1.0); } } if (tempD.getNumArmies() > 1) { D2 =
-		 * (int)(Math.random()*5+1.0); }
-		 * 
-		 * //Order and match dice //D1 biggest if (D1 >= D2) { DUse1 = D1; DUse2 = D2; }
-		 * //D2 biggest else { DUse1 = D2; DUse2 = D1; } //A1 biggest if ((A1 >= A2) &&
-		 * (A1 >= A3)) { AUse1 = A1; if (A2 >= A3) { AUse2 = A2; AUse3 = A3; } else {
-		 * AUse2 = A3; AUse3 = A2; } } //A2 biggest else if ((A2 >= A1) && (A2 >= A3)) {
-		 * AUse1 = A2; if (A1 >= A3) { AUse2 = A1; AUse3 = A3; } else { AUse2 = A3;
-		 * AUse3 = A1; } } //A3 biggest else if ((A3 >= A1) && (A3 >= A2)) { AUse1 = A1;
-		 * if (A1 >= A2) { AUse2 = A1; AUse3 = A2; } else { AUse2 = A2; AUse3 = A1; } }
-		 */
+  //MOUSE LISTENER
+  public static void placeArmies(Player p) {
+    int count = p.countNumArmiesToCollect();
+    //If true...
+    count += cashCards(p);
+    Country tempC;
+    System.out.println ("Click on a country to place an army there.");
+    for (int i = 0; i < count; i++) {
+      System.out.println ("HI");
+      tempC = w.countriesArray[chooseCountry()];
+      while (tempC.getOwner() != p.getMyNum()) {
+        System.out.println ("Choose one of your own countries.");
+        tempC = w.countriesArray[chooseCountry()];
+      }
+      tempC.addArmy(1);
+    }
+  }
 
-		System.out.println("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from "
-				+ tempA.getName() + " to " + tempD.getName() + ".");
+  public static void attack(Player p) {
+    System.out.println ("Choose a country from which to attack. ");
+    Country tempA = w.countriesArray[chooseCountry()];
+    while ((tempA.getOwner() != p.getMyNum()) || (tempA.getNumArmies() == 1)) {
+      System.out.println ("Invalid: Attack from one of your countries with 2+ armies.");
+      tempA = w.countriesArray[chooseCountry()];
+    }
+    System.out.println ("Choose a country to attack. ");
+    Country tempD = w.countriesArray[chooseCountry()];
+    while (tempD.getOwner() == p.getMyNum() /* || Connection*/) {
+      System.out.println ("Choose someone else's country to attack.");
+      tempD = w.countriesArray[chooseCountry()];
+    }
 
-	}
+    System.out.println ("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from " + tempA.getName() + " to " + tempD.getName() + ".");
 
-	public static void moveArmies() {
+    int A1 = (int)(Math.random()*5+1.0);
+    System.out.print ("Player " + tempA.getOwner() + " rolled " + A1);
+    int A2 = 0;
+    int A3 = 0;
+    int AUse1 = 0;
+    int AUse2 = 0;
+    int AUse3 = 0;
+    //Roll dice based on number of armies
+    if (tempA.getNumArmies() > 2) {
+      A2 = (int)(Math.random()*5+1.0);
+      System.out.print (", " + A2);
+      if (tempA.getNumArmies() > 3) {
+        A3 = (int)(Math.random()*5+1.0);
+        System.out.print (", " + A3);
+      }
+    }
+    //A1 biggest
+    if ((A1 >= A2) && (A1 >= A3)) {
+      AUse1 = A1;
+      if (A2 >= A3) {
+        AUse2 = A2;
+        AUse3 = A3;
+      }
+      else {
+        AUse2 = A3;
+        AUse3 = A2;
+      }
+    }
+    //A2 biggest
+    else if ((A2 >= A1) && (A2 >= A3)) {
+      AUse1 = A2;
+      if (A1 >= A3) {
+        AUse2 = A1;
+        AUse3 = A3;
+      }
+      else {
+        AUse2 = A3;
+        AUse3 = A1;
+      }
+    }
+    //A3 biggest
+    else if ((A3 >= A1) && (A3 >= A2)) {
+      AUse1 = A1;
+      if (A1 >= A2) {
+        AUse2 = A1;
+        AUse3 = A2;
+      }
+      else {
+        AUse2 = A2;
+        AUse3 = A1;
+      }
+    }
 
-	}
+    int D1 = (int)(Math.random()*5+1.0);
+    System.out.print ("Player " + tempD.getOwner() + " rolled " + D1);
+    int D2 = 0;
+    if (tempD.getNumArmies() > 1) {
+      D2 = (int)(Math.random()*5+1.0);
+      System.out.print (", " + D2);
+    }
+    int DUse1 = 0;
+    int DUse2 = 0;
 
-	public static int endTurn(int o) {
-		if (o == (NUMPLAYERS - 1)) {
-			return 0;
-		}
-		return o++;
-	}
+    //Order and match dice
+    //D1 biggest
+    if (D1 >= D2) {
+        DUse1 = D1;
+        DUse2 = D2;
+    }
+    //D2 biggest
+    else {
+      DUse1 = D2;
+      DUse2 = D1;
+    }
 
-	@Override
-	public void mouseClicked(MouseEvent e) {}
+    int ALoss = 0;
+    int DLoss = 0;
+    if (DUse1 >= AUse1) {
+      ALoss++;
+    }
+    else {
+      DLoss++;
+    }
+    if (DUse2 >= AUse2) {
+      ALoss++;
+    }
+    else if (DUse2 != 0) {
+      DLoss++;
+    }
 
-	@Override
-	public void mouseEntered(MouseEvent e) {}
+    tempA.subtractArmy(ALoss);
+    tempD.subtractArmy(DLoss);
 
-	@Override
-	public void mouseExited(MouseEvent e) {}
+  }
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		mouseX = e.getX();
-		mouseY = e.getY();
-	}
+  public static void moveArmies() {
 
-	@Override
-	public void mouseReleased(MouseEvent e) {}
+  }
+
+  public static int endTurn (int o) {
+    if (o == (NUMPLAYERS-1)) {
+      return 0;
+    }
+    return o++;
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+  }
+  @Override
+  public void mouseEntered(MouseEvent e) {
+  }
+  @Override
+  public void mouseExited(MouseEvent e) {
+  }
+  @Override
+  public void mousePressed(MouseEvent e) {
+    mouseX = e.getX();
+    mouseY = e.getY();
+  }
+  @Override
+  public void mouseReleased(MouseEvent e) {
+  }
 }

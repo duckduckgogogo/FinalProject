@@ -1,7 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
+<<<<<<< HEAD
 import java.io.PrintWriter;
+=======
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 import java.io.File;
 import java.util.Scanner;
 
@@ -21,6 +24,7 @@ public class World {
   }
 
   //Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
+<<<<<<< HEAD
   private Country[] setCountries (Country[] c, String filename) {
 	  try {
 	    File input = new File(filename);
@@ -48,6 +52,14 @@ public class World {
     c[2] = new Country ("C", 40, 40, 30, 15, 1);
     c[3] = new Country ("D", 100, 120, 30, 70, 1);
     c[4] = new Country ("E", 70, 70, 10, 40, 1);
+=======
+  private Country[] setCountries (Country[] c) {
+    c[0] = new Country ("A", 10, 10, 30, 10);
+    c[1] = new Country ("B", 300, 250, 30, 50);
+    c[2] = new Country ("C", 40, 40, 30, 15);
+    c[3] = new Country ("D", 100, 120, 30, 70);
+    c[4] = new Country ("E", 70, 70, 10, 40);
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
     //SHU AMANO
     //TEXT FILE */
 	  return c; 

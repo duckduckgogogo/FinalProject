@@ -293,7 +293,13 @@ public class Main extends JPanel implements MouseListener{
   }
 
   public static boolean checkWin () {
-
+    int m = w.countriesArray[0].getOwner();
+    for (int i = 1; i < w.TOTALNUMCOUNTRIES; i++) {
+      if (w.countriesArray[i].getOwner() != m) {
+        return false;
+      }
+    }
+    return true;
   }
 
   @Override

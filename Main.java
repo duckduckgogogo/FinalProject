@@ -10,24 +10,24 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.lang.Math;
 
-public class Main extends JPanel implements MouseListener{
-  static int mouseX;
-  static int mouseY;
-  final int HEIGHT = 600;
-  final int WIDTH = 1000;
-  public static Scanner keyboard = new Scanner (System.in);
-  static World w;
-  static boolean GAMEOVER = false;
-  static int state = 0; //Necessary?
-  static int NUMPLAYERS;
+public class Main extends JPanel implements MouseListener {
+	static int mouseX;
+	static int mouseY;
+	final int HEIGHT = 600;
+	final int WIDTH = 1000;
+	public static Scanner keyboard = new Scanner(System.in);
+	static World w;
+	static boolean GAMEOVER = false;
+	static int state = 0; // Necessary?
+	static int NUMPLAYERS;
 
-  public Main () {
-    w = new World();
-    this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-    addMouseListener(this);
-  }
+	public Main() {
+		w = new World();
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		addMouseListener(this);
+	}
 
-  public static void main (String[] args) {
+	public static void main (String[] args) {
     //Frame
     JFrame frame = new JFrame ("Risky Business.");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,38 +49,39 @@ public class Main extends JPanel implements MouseListener{
     System.out.println ("Players take turns claiming a country.");
     int order = 0;
     int tempC;
-    for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
-      tempC = chooseCountry();
-      if (w.countriesArray[tempC].getOwner() == 10) {
-        w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
-        playerArray[order].addCountry();
-      }
-      else {
-        System.out.println ("That country has already been chosen by another player.");
-      }
+    
+    while (w.isAllClaimed(w.countriesArray) == false) {
+        for (int j = 0; j < NUMPLAYERS; j++) {
+        	System.out.println("Please select a country you wish to claim, Player " + (j + 1) + ".");
+        	tempC = chooseCountry();
+        	while (w.countriesArray[tempC].getOwner() != 10) {
+        		tempC = chooseCountry();
+        		System.out.println ("That country has already been claimed by another player.");
+        	}
+        	w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
+        	System.out.println("Player " + (j + 1) + " has claimed " +  w.countriesArray[tempC].getName() + ".");
+        	if (w.isAllClaimed(w.countriesArray)) {
+        		break;
+        	}
+        }
+      System.out.println ("All the countries have been chosen.");
+    }	
+    
 
-      order=endTurn(order);
-    }
-    System.out.println ("All the countries have been chosen.");
+	// Game play
+	order=0;while(GAMEOVER==false)
 
-    //Initially place armies
-    for (int i = 0; i < NUMPLAYERS; i++) {
-      placeArmies(playerArray[i]);
-    }
+	{
+		play(playerArray[order]);
+		order = endTurn(order);
+	}
 
-    //Game play
-    order = 0;
-    while (GAMEOVER == false) {
-      play(playerArray[order]);
-      order = endTurn(order);
-    }
+	// Graphics g;
+	// w.drawCountries(g);
+	}
 
-    //Graphics g;
-    //w.drawCountries(g);
-  }
-
-  //WHAT DOES PAINTCOMPONENT DO?
-  public void paintComponent (Graphics g) {
+	// WHAT DOES PAINTCOMPONENT DO?
+	public void paintComponent (Graphics g) {
     super.paintComponent(g);
     g.setColor(Color.BLACK);
     g.fillRect(0,0, WIDTH, HEIGHT);
@@ -88,8 +89,8 @@ public class Main extends JPanel implements MouseListener{
     w.drawAllConnections(g);
   }
 
-  //SHU: MOUSE ACTION LISTENER
-  public static int chooseCountry(){
+	// SHU: MOUSE ACTION LISTENER
+	public static int chooseCountry(){
     mouseX = -1;
     mouseY = -1;
 
@@ -112,7 +113,6 @@ public class Main extends JPanel implements MouseListener{
           int y = w.countriesArray[i].getPosY();
           // CHANGE COUNTRY HEIGHT VALUE
           if (w.countriesArray[i].isIn(mouseX,mouseY)) {
-            System.out.println(i);
             return i;
           }
         }
@@ -120,6 +120,7 @@ public class Main extends JPanel implements MouseListener{
       }
     }
   }
+
 
   public static void play (Player p) {
     System.out.println ("Player " + p.getMyNum() + "'s turn.");

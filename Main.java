@@ -261,10 +261,13 @@ public class Main extends JPanel implements MouseListener{
     tempA.subtractArmy(ALoss);
     tempD.subtractArmy(DLoss);
 
+    if (tempD.getNumArmies() < 1) {
+      moveArmies(tempA, tempD);
+    }
   }
 
-  public static void moveArmies() {
-
+  public static void moveArmies(Country a, Country b) {
+    System.out.println ("You have " + a.getNumArmies());
   }
 
   public static int endTurn (int o) {

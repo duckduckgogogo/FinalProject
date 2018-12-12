@@ -13,8 +13,8 @@ import java.lang.Math;
 public class Main extends JPanel implements MouseListener{
   static int mouseX;
   static int mouseY;
-  final int HEIGHT = 585;
-  final int WIDTH = 780;
+  final int HEIGHT = 600;
+  final int WIDTH = 1000;
   public static Scanner keyboard = new Scanner (System.in);
   static World w;
   static boolean GAMEOVER = false;
@@ -75,8 +75,9 @@ public class Main extends JPanel implements MouseListener{
   public void paintComponent (Graphics g) {
     super.paintComponent(g);
     g.setColor(Color.BLACK);
-    g.fillRect(0,0, HEIGHT, WIDTH);
+    g.fillRect(0,0, WIDTH, HEIGHT);
     w.drawCountries(g);
+    w.drawAllConnections(g);
   }
 
   //SHU: MOUSE ACTION LISTENER

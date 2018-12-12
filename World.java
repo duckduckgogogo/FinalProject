@@ -6,86 +6,123 @@ import java.io.File;
 import java.util.Scanner;
 
 public class World {
-  static final int TOTALNUMCOUNTRIES = 43;
-  static Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
-  static Card[] cardsArray = new Card[TOTALNUMCOUNTRIES];
-  static final int[][] CONNECTIONS = new int[TOTALNUMCOUNTRIES][TOTALNUMCOUNTRIES]; //final?
+	static final int TOTALNUMCOUNTRIES = 43;
+	static Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
+	static Card[] cardsArray = new Card[TOTALNUMCOUNTRIES];
+	static int[][] CONNECTIONS = new int[TOTALNUMCOUNTRIES][TOTALNUMCOUNTRIES]; // final?
 
-  //Constructor
-  public World () {
-    for (int i = 0; i < TOTALNUMCOUNTRIES; i++) { //Instantiate cards: 1 card per country, available
-      cardsArray[i] = new Card (i);
-    }
-    countriesArray = setCountries(countriesArray, "CountryData"); //Instantiate countries
-    //CONNECTIONS = setConnections (CONNECTIONS); //Instantiate country connections
-  }
-
-  //Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
-  private Country[] setCountries (Country[] c, String filename) {
-	  try {
-	    File input = new File(filename);
-	    Scanner sc = new Scanner(input);
-	    int i = 0;
-	    while(i < 43) {
-	    	String[] countryInfo = sc.nextLine().split(",");
-			String countryName = countryInfo[0];
-			int countryX = Integer.parseInt(countryInfo[1]);
-			int countryY = Integer.parseInt(countryInfo[2]);
-			int countryWidth = Integer.parseInt(countryInfo[3]);
-			int countryHeight = Integer.parseInt(countryInfo[4]);
-			int countryContinent = Integer.parseInt(countryInfo[5]);
-	    	c[i] = new Country(countryName, countryX, countryY, countryWidth, countryHeight, countryContinent);
-	    	i ++;
-	    	}
+	// Constructor
+	public World() {
+		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) { // Instantiate cards: 1 card per country, available
+			cardsArray[i] = new Card(i);
 		}
-		catch(FileNotFoundException e) {
-		    System.err.println("File not found.");
-		    System.err.println(e);
+		countriesArray = setCountries(countriesArray, "CountryData"); // Instantiate countries
+		CONNECTIONS = setConnections(CONNECTIONS, "Connections");
+	}
+
+	// Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
+	private Country[] setCountries(Country[] c, String filename) {
+		try {
+			File input = new File(filename);
+			Scanner sc = new Scanner(input);
+			int i = 0;
+			while (i < 43) {
+				String[] countryInfo = sc.nextLine().split(",");
+				String countryName = countryInfo[0];
+				int countryX = Integer.parseInt(countryInfo[1]);
+				int countryY = Integer.parseInt(countryInfo[2]);
+				int countryWidth = Integer.parseInt(countryInfo[3]);
+				int countryHeight = Integer.parseInt(countryInfo[4]);
+				int countryContinent = Integer.parseInt(countryInfo[5]);
+				c[i] = new Country(countryName, countryX, countryY, countryWidth, countryHeight, countryContinent);
+				i++;
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Country Data File not found.");
+			System.err.println(e);
 		}
-	  
-	/*c[0] = new Country ("A", 10, 10, 30, 10, 1);
-    c[1] = new Country ("B", 300, 250, 30, 50, 1);
-    c[2] = new Country ("C", 40, 40, 30, 15, 1);
-    c[3] = new Country ("D", 100, 120, 30, 70, 1);
-    c[4] = new Country ("E", 70, 70, 10, 40, 1);
-    //SHU AMANO
-    //TEXT FILE */
-	  return c; 
-  }
+		return c;
+	}
 
-  //Connect countries: (int country1, int country2)
-  /*private void connect (int[][] a, int c1, int c2) {
+	// Connect countries: (int country1, int country2)
+	/*
+	 * private void connect (int[][] a, int c1, int c2) {
+	 * 
+	 * 
+	 * a[c1][c2] = 1; a[c2][c1] = 1; }
+	 */
 
+	// Set all the country connections using the connect method
+	
+	// Create a Connection Matrix that represents all connections between countries
+	private int[][] setConnections(int[][] a, String filename) { 
+		try {
+			File input = new File(filename);
+			Scanner sc = new Scanner(input);
+			
+			for (int i = 0; i < TOTALNUMCOUNTRIES; i++) { 
+				String[] connectionInfo = sc.nextLine().split(",");
+				for (int j = 0; j < TOTALNUMCOUNTRIES; j++) {
+					a[i][j] = Integer.parseInt(connectionInfo[j]); 
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Connection File not found.");
+			System.err.println(e);
+		}
+		return a;
+	}
+	// connect (a, 0, 1);
+	// SHU AMANO
+	// TEXT FILE
+	// return a;
+	// }
 
-    a[c1][c2] = 1;
-    a[c2][c1] = 1;
-  }*/
+	// Check if two countries are connected
+	public Boolean isConnected(int i, int j) {
+		if (CONNECTIONS[i][j] == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// Draw countries
+	public void drawCountries(Graphics g) {
+		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
+			countriesArray[i].drawCountry(g);
+		}
+	}
 
-  //Set all the country connections using the connect method
-  /*private int[][] setConnections (int[][] a) {
-    //FILE SCANNER
+	// Draws connections between two countries
+	public void drawConnection(Graphics g, int i, int j) {
+		int icenterX = (int) (countriesArray[i].getPosX() + Math.round(0.5*countriesArray[i].getWidth()));
+		int icenterY = (int) (countriesArray[i].getPosY() + Math.round(0.5*countriesArray[i].getHeight()));
+		int jcenterX = (int) (countriesArray[j].getPosX() + Math.round(0.5*countriesArray[j].getWidth()));
+		int jcenterY = (int) (countriesArray[j].getPosY() + Math.round(0.5*countriesArray[j].getHeight()));
+		if (countriesArray[i].getContinent() == countriesArray[j].getContinent()) {
+			g.setColor(countriesArray[i].getColor());
+		    g.drawLine(icenterX, icenterY, jcenterX, jcenterY);
+		} else {
+			g.setColor(Color.WHITE);
+		    g.drawLine(icenterX, icenterY, jcenterX, jcenterY);
+		}
 
-    for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
-      for (int j = 0; j < TOTALNUMCOUNTRIES; j++) {
-        a[i][j] = nextInt(); //CHECK
-      }
-    }*/
-
-    //connect (a, 0, 1);
-    //SHU AMANO
-    //TEXT FILE
-    //return a;
-  //}
-
-  //Draw countries
-  public void drawCountries (Graphics g) {
-    for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
-      countriesArray[i].drawCountry(g);
-    }
-  }
-
-  //Update world
-  /*public void updateWorld () {
-    drawCountries(countriesArray);
-  }*/
+	}
+	
+	// Draw connections between ALL countries
+	public void drawAllConnections(Graphics g) {
+		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
+			for (int j = i; j < TOTALNUMCOUNTRIES; j++) {
+				if (isConnected(i,j)) {
+					drawConnection(g, i,j);
+				}
+			}
+		}
+	}
+	
+	// Update world
+	/*
+	 * public void updateWorld () { drawCountries(countriesArray); }
+	 */
 }

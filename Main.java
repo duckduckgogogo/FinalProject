@@ -59,6 +59,7 @@ public class Main extends JPanel implements MouseListener{
 
       order=endTurn(order);
     }
+    System.out.println ("All the countries have been chosen. Time to play!");
 
     //Game play
     order = 0;

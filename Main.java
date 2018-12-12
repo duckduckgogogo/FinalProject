@@ -13,8 +13,8 @@ import java.lang.Math;
 public class Main extends JPanel implements MouseListener{
   static int mouseX;
   static int mouseY;
-  final int HEIGHT = 500;
-  final int WIDTH = 500;
+  final int HEIGHT = 585;
+  final int WIDTH = 780;
   public static Scanner keyboard = new Scanner (System.in);
   static World w;
   static boolean GAMEOVER = false;

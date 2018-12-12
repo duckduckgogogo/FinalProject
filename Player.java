@@ -66,6 +66,14 @@ public class Player {
     return numCards;
   }
 
+  public void addCountry() {
+    numCountries++;
+  }
+
+  public void subtractCountry() {
+    numCountries--;
+  }
+
   public int getNumCountries() {
     return numCountries;
   }

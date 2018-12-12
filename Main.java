@@ -46,12 +46,14 @@ public class Main extends JPanel implements MouseListener{
     }
 
     //Initial assignment of countries to players
+    System.out.println ("Players take turns claiming a country.");
     int order = 0;
     int tempC;
     for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
       tempC = chooseCountry();
       if (w.countriesArray[tempC].getOwner() == 10) {
         w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
+        playerArray[order].addCountry();
       }
       else {
         System.out.println ("That country has already been chosen by another player.");
@@ -59,7 +61,12 @@ public class Main extends JPanel implements MouseListener{
 
       order=endTurn(order);
     }
-    System.out.println ("All the countries have been chosen. Time to play!");
+    System.out.println ("All the countries have been chosen.");
+
+    //Initially place armies
+    for (int i = 0; i < NUMPLAYERS; i++) {
+      placeArmies(playerArray[i]);
+    }
 
     //Game play
     order = 0;
@@ -115,6 +122,7 @@ public class Main extends JPanel implements MouseListener{
   }
 
   public static void play (Player p) {
+    System.out.println ("Player " + p.getMyNum() + "'s turn.");
     placeArmies(p);
     attack(p);
   }
@@ -132,7 +140,9 @@ public class Main extends JPanel implements MouseListener{
     //If true...
     count += cashCards(p);
     Country tempC;
+    System.out.println ("Click on a country to place an army there.");
     for (int i = 0; i < count; i++) {
+      System.out.println ("HI");
       tempC = w.countriesArray[chooseCountry()];
       while (tempC.getOwner() != p.getMyNum()) {
         System.out.println ("Choose one of your own countries.");

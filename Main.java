@@ -278,6 +278,8 @@ public class Main extends JPanel implements MouseListener{
     while ((t < 2) || (t > a.getNumArmies()-1)) {
       System.out.println ("Invalid number of armies: Please choose a number between 1 and " + (a.getNumArmies()-1));
     }
+    a.subtractArmy(t);
+    b.addArmy(t);
   }
 
   public static int endTurn (int o) {

@@ -116,7 +116,6 @@ public class Main extends JPanel implements MouseListener{
           int y = w.countriesArray[i].getPosY();
           // CHANGE COUNTRY HEIGHT VALUE
           if (w.countriesArray[i].isIn(mouseX,mouseY)) {
-            System.out.println(i);
             return i;
           }
         }

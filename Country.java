@@ -103,7 +103,7 @@ public class Country {
 
   public void drawCountry(Graphics g) {
     g.setColor(MYCOLOR);
-    g.fillRect(POSX, POSY, COUNTRYHEIGHT, COUNTRYWIDTH);
+    g.fillRect(POSX, POSY, COUNTRYWIDTH, COUNTRYHEIGHT);
     g.setColor(armyColor);
     g.drawString(Integer.toString(numArmies), POSX, POSY);
   }

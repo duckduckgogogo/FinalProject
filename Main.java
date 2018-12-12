@@ -20,6 +20,7 @@ public class Main extends JPanel implements MouseListener{
   static boolean GAMEOVER = false;
   static int state = 0; //Necessary?
   static int NUMPLAYERS;
+  static Graphics g;
 
   public Main () {
     w = new World();
@@ -57,11 +58,14 @@ public class Main extends JPanel implements MouseListener{
         		tempC = chooseCountry();
         		System.out.println ("That country has already been claimed by another player.");
         	}
-        	w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
+        	w.countriesArray[tempC].setOwner(j);
+        	w.countriesArray[tempC].addArmy(5);
+        	System.out.println(w.countriesArray[tempC].getOwner());
         	System.out.println("Player " + (j + 1) + " has claimed " +  w.countriesArray[tempC].getName() + ".");
-          playerArray[j].addCountry();
-          if (w.isAllClaimed(w.countriesArray)) {
-        		break;
+        	playerArray[j].addCountry();
+        	mainInstance.repaint();
+        	if (w.isAllClaimed(w.countriesArray)) {
+        	  break;
         	}
         }
     }
@@ -289,8 +293,7 @@ public class Main extends JPanel implements MouseListener{
     return o++;
   }
 
-  public static boolean checkWin () {
-    
+  public static void checkWin() {
   }
 
   @Override

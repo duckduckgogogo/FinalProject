@@ -138,7 +138,10 @@ public class World {
 
 	
 	// Update world
-	/*
-	 * public void updateWorld () { drawCountries(countriesArray); }
-	 */
+	
+	public void updateWorld (Graphics g) { 
+		drawCountries(g); 
+		drawAllConnections(g);
+	}
+	
 }

@@ -20,6 +20,7 @@ public class Main extends JPanel implements MouseListener{
   static boolean GAMEOVER = false;
   static int state = 0; //Necessary?
   static int NUMPLAYERS;
+  static Graphics g;
 
   public Main () {
     w = new World();
@@ -35,7 +36,6 @@ public class Main extends JPanel implements MouseListener{
     frame.setContentPane(mainInstance);
     frame.pack();
     frame.setVisible(true);
-
     //Initialize playerArray
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
     Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
@@ -290,7 +290,7 @@ public class Main extends JPanel implements MouseListener{
   }
 
   public static boolean checkWin () {
-    
+
   }
 
   @Override

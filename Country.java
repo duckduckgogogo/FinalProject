@@ -16,7 +16,7 @@ public class Country {
   private int owner = 10;
   final private int ARRAYPOS;
 
-  public Country (String b, int d, int e, int width, int height, int continent) /*int[] a*/ {
+  public Country(String b, int d, int e, int width, int height, int continent) /*int[] a*/ {
     this.numArmies = 0;
     this.CONTINENT = continent;
     this.COUNTRYHEIGHT = height;
@@ -25,9 +25,24 @@ public class Country {
     //this.MYCOLOR = c;
     this.POSX = d;
     this.POSY = e;
-    this.MYCOLOR = Color.BLUE;
     this.ARRAYPOS = 0;
-
+    if (continent == 1) {
+    	this.MYCOLOR = Color.BLUE;
+    } else if (continent == 2){
+    	this.MYCOLOR = Color.RED;
+    } else if (continent == 3){
+    	this.MYCOLOR = Color.CYAN;
+    } else if (continent == 4){
+    	this.MYCOLOR = Color.GREEN;
+    } else if (continent == 5){
+    	this.MYCOLOR = Color.MAGENTA;
+    } else if (continent == 6) {
+    	this.MYCOLOR = Color.ORANGE;
+    } else {
+    	this.MYCOLOR = Color.PINK;
+    }
+       
+    	   
     //Set color based on continent
 
     /*this.CONTINENT = a[0].parseInt();
@@ -96,7 +111,15 @@ public class Country {
   public Color getColor () {
     return MYCOLOR;
   }
+  
+  public int getHeight () {
+	  return COUNTRYHEIGHT;
+  }
 
+  public int getWidth () {
+	  return COUNTRYWIDTH;
+  }
+  
   public void setArmyColor (Color c) {
     armyColor = c;
   }

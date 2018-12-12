@@ -64,7 +64,6 @@ public class Main extends JPanel implements MouseListener{
         	System.out.println(w.countriesArray[tempC].getOwner());
         	System.out.println("Player " + (j + 1) + " has claimed " +  w.countriesArray[tempC].getName() + ".");
         	playerArray[j].addCountry();
-        	//mainInstance.repaint();
         	if (w.isAllClaimed(w.countriesArray)) {
         	  break;
         	}

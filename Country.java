@@ -70,13 +70,13 @@ public class Country {
       setArmyColor(Color.ORANGE);
     }
     else if (i == 2) {
-      setArmyColor(Color.YELLOW);
+      setArmyColor(Color.CYAN);
     }
     else if (i == 3) {
-      setArmyColor(Color.GREEN);
+      setArmyColor(Color.PURPLE);
     }
     else {
-      setArmyColor(Color.BLUE);
+      setArmyColor(Color.BROWN);
     }
   }
 
@@ -129,7 +129,7 @@ public class Country {
     g.fillRect(POSX, POSY, COUNTRYWIDTH, COUNTRYHEIGHT);
     if	(owner == 10) {
     	g.setColor(Color.WHITE);
-    	g.drawString(Integer.toString(numArmies), POSX, POSY+30);    
+    	g.drawString(Integer.toString(numArmies), POSX, POSY+30);
     } else {
     	g.setColor(armyColor);
     	g.drawString(Integer.toString(numArmies), POSX, POSY+30);

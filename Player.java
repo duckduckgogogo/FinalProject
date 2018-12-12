@@ -27,13 +27,13 @@ public class Player {
       MYPLAYERCOLOR = Color.ORANGE;
     }
     else if (i == 2) {
-      MYPLAYERCOLOR = Color.YELLOW;
+      MYPLAYERCOLOR = Color.BLUE;
     }
     else if (i == 3) {
-      MYPLAYERCOLOR = Color.GREEN;
+      MYPLAYERCOLOR = Color.PURPLE;
     }
     else {
-      MYPLAYERCOLOR = Color.BLUE;
+      MYPLAYERCOLOR = Color.BROWN;
     }
   }
 

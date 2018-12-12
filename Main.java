@@ -21,6 +21,7 @@ public class Main extends JPanel implements MouseListener{
   static int state = 0; //Necessary?
   static int NUMPLAYERS;
   static Graphics g;
+  static Main mainInstance;
 
   public Main () {
     w = new World();
@@ -32,7 +33,7 @@ public class Main extends JPanel implements MouseListener{
     //Frame
     JFrame frame = new JFrame ("Risky Business.");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    Main mainInstance = new Main();
+    mainInstance = new Main();
     frame.setContentPane(mainInstance);
     frame.pack();
     frame.setVisible(true);
@@ -62,7 +63,7 @@ public class Main extends JPanel implements MouseListener{
         	System.out.println(w.countriesArray[tempC].getOwner());
         	System.out.println("Player " + (j + 1) + " has claimed " +  w.countriesArray[tempC].getName() + ".");
         	playerArray[j].addCountry();
-        	mainInstance.repaint();
+        	//mainInstance.repaint();
         	if (w.isAllClaimed(w.countriesArray)) {
         	  break;
         	}
@@ -315,6 +316,7 @@ public class Main extends JPanel implements MouseListener{
   public void mousePressed(MouseEvent e) {
     mouseX = e.getX();
     mouseY = e.getY();
+    mainInstance.repaint();
   }
   @Override
   public void mouseReleased(MouseEvent e) {

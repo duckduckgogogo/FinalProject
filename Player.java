@@ -9,13 +9,15 @@ public class Player {
   private int numCountries;
   private int numContinents;
   private static int deckCounter = 0;
-  final int MYNUM;
+  private final int MYNUM;
   private int numCards;
+  private int numArmies;
 
   public Player (int i) {
     this.numCountries = 0;
     this.numContinents = 0;
     this.numCards = 0;
+    this.numArmies = 0;
     MYNUM = i;
 
     if (i == 0) {
@@ -35,6 +37,9 @@ public class Player {
     }
   }
 
+  public int getMyNum() {
+    return MYNUM;
+  }
 
   public void addCard () {
     if (deckCounter >= World.TOTALNUMCOUNTRIES) {
@@ -42,6 +47,14 @@ public class Player {
       return;
     }
     World.cardsArray[deckCounter].setOwner(MYNUM);
+  }
+
+  public int getNumArmies() {
+    return numArmies;
+  }
+
+  public void addArmies (int i) {
+    numArmies += i;
   }
 
   //Can only redeem all cards at once

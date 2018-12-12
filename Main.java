@@ -36,7 +36,6 @@ public class Main extends JPanel implements MouseListener{
     frame.setContentPane(mainInstance);
     frame.pack();
     frame.setVisible(true);
-
     //Initialize playerArray
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
     Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
@@ -293,7 +292,12 @@ public class Main extends JPanel implements MouseListener{
     return o++;
   }
 
+<<<<<<< HEAD
   public static void checkWin() {
+=======
+  public static boolean checkWin () {
+
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
   }
 
   @Override

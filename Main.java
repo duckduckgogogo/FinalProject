@@ -168,7 +168,7 @@ public class Main extends JPanel implements MouseListener{
     System.out.println ("Choose a country to attack. ");
     Country tempD = w.countriesArray[chooseCountry()];
     while (tempD.getOwner() == p.getMyNum() /* || Connection*/) {
-      System.out.println ("Choose someone else's country to attack.");
+      System.out.println ("Invalid: Choose someone else's country to attack.");
       tempD = w.countriesArray[chooseCountry()];
     }
 
@@ -273,7 +273,11 @@ public class Main extends JPanel implements MouseListener{
   }
 
   public static void moveArmies(Country a, Country b) {
-    System.out.println ("You have " + a.getNumArmies());
+    System.out.println ("You have " + a.getNumArmies() + " armies. How many armies would you like to move from " + a.getName() + " to " + b.getName() + "?");
+    int t = keyboard.nextInt();
+    while ((t < 2) || (t > a.getNumArmies()-1)) {
+      System.out.println ("Invalid number of armies: Please choose a number between 1 and " + (a.getNumArmies()-1));
+    }
   }
 
   public static int endTurn (int o) {

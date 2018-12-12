@@ -46,18 +46,26 @@ public class Main extends JPanel implements MouseListener{
     }
 
     //Initial assignment of countries to players
+    System.out.println ("Players take turns claiming a country.");
     int order = 0;
     int tempC;
     for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
       tempC = chooseCountry();
       if (w.countriesArray[tempC].getOwner() == 10) {
         w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
+        playerArray[order].addCountry();
       }
       else {
         System.out.println ("That country has already been chosen by another player.");
       }
 
       order=endTurn(order);
+    }
+    System.out.println ("All the countries have been chosen.");
+
+    //Initially place armies
+    for (int i = 0; i < NUMPLAYERS; i++) {
+      placeArmies(playerArray[i]);
     }
 
     //Game play
@@ -114,6 +122,7 @@ public class Main extends JPanel implements MouseListener{
   }
 
   public static void play (Player p) {
+    System.out.println ("Player " + p.getMyNum() + "'s turn.");
     placeArmies(p);
     attack(p);
   }
@@ -131,7 +140,9 @@ public class Main extends JPanel implements MouseListener{
     //If true...
     count += cashCards(p);
     Country tempC;
+    System.out.println ("Click on a country to place an army there.");
     for (int i = 0; i < count; i++) {
+      System.out.println ("HI");
       tempC = w.countriesArray[chooseCountry()];
       while (tempC.getOwner() != p.getMyNum()) {
         System.out.println ("Choose one of your own countries.");
@@ -158,7 +169,7 @@ public class Main extends JPanel implements MouseListener{
     System.out.println ("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from " + tempA.getName() + " to " + tempD.getName() + ".");
 
     int A1 = (int)(Math.random()*5+1.0);
-    System.out.print ("Player " + tempA.getOwner() + " rolled a " + A1);
+    System.out.print ("Player " + tempA.getOwner() + " rolled " + A1);
     int A2 = 0;
     int A3 = 0;
     int AUse1 = 0;
@@ -211,10 +222,11 @@ public class Main extends JPanel implements MouseListener{
     }
 
     int D1 = (int)(Math.random()*5+1.0);
+    System.out.print ("Player " + tempD.getOwner() + " rolled " + D1);
     int D2 = 0;
-
     if (tempD.getNumArmies() > 1) {
       D2 = (int)(Math.random()*5+1.0);
+      System.out.print (", " + D2);
     }
     int DUse1 = 0;
     int DUse2 = 0;
@@ -231,7 +243,23 @@ public class Main extends JPanel implements MouseListener{
       DUse2 = D1;
     }
 
+    int ALoss = 0;
+    int DLoss = 0;
+    if (DUse1 >= AUse1) {
+      ALoss++;
+    }
+    else {
+      DLoss++;
+    }
+    if (DUse2 >= AUse2) {
+      ALoss++;
+    }
+    else if (DUse2 != 0) {
+      DLoss++;
+    }
 
+    tempA.subtractArmy(ALoss);
+    tempD.subtractArmy(DLoss);
 
   }
 

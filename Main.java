@@ -137,6 +137,9 @@ public class Main extends JPanel implements MouseListener{
   //MOUSE LISTENER
   public static void placeArmies(Player p) {
     int count = p.countNumArmiesToCollect();
+    System.out.println ("You can place " + count + " armies.");
+    System.out.println ("Would you like to cash in your " + p.getNumCards() + " cards for " + p.getNumCards() + " armies?");
+
     //If true...
     count += cashCards(p);
     Country tempC;

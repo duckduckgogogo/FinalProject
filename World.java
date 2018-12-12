@@ -16,7 +16,7 @@ public class World {
     for (int i = 0; i < TOTALNUMCOUNTRIES; i++) { //Instantiate cards: 1 card per country, available
       cardsArray[i] = new Card (i);
     }
-    countriesArray = setCountries(countriesArray, "CountryData.txt"); //Instantiate countries
+    countriesArray = setCountries(countriesArray, "CountryData"); //Instantiate countries
     //CONNECTIONS = setConnections (CONNECTIONS); //Instantiate country connections
   }
 
@@ -25,8 +25,8 @@ public class World {
 	  try {
 	    File input = new File(filename);
 	    Scanner sc = new Scanner(input);
-	    for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
-	    	
+	    int i = 0;
+	    while(i < 43) {
 	    	String[] countryInfo = sc.nextLine().split(",");
 			String countryName = countryInfo[0];
 			int countryX = Integer.parseInt(countryInfo[1]);
@@ -35,7 +35,7 @@ public class World {
 			int countryHeight = Integer.parseInt(countryInfo[4]);
 			int countryContinent = Integer.parseInt(countryInfo[5]);
 	    	c[i] = new Country(countryName, countryX, countryY, countryWidth, countryHeight, countryContinent);
-	    	System.out.println();
+	    	i ++;
 	    	}
 		}
 		catch(FileNotFoundException e) {

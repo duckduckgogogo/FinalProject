@@ -58,7 +58,7 @@ public class Player {
   }
 
   //Can only redeem all cards at once
-  public void subtractCard () {
+  public void subtractCards () {
     numCards = 0;
   }
 

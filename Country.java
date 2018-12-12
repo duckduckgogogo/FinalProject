@@ -15,6 +15,7 @@ public class Country {
   private Color armyColor;
   private int owner = 10;
   final private int ARRAYPOS;
+  final int ARMYDIM = 5;
 
   public Country (String b, int d, int e /*int[] a*/) {
     this.numArmies = 0;
@@ -45,6 +46,21 @@ public class Country {
 
   public void setOwner (int i) {
     owner = i;
+    if (i == 0) {
+      setArmyColor(Color.RED);
+    }
+    else if (i == 1) {
+      setArmyColor(Color.ORANGE);
+    }
+    else if (i == 2) {
+      setArmyColor(Color.YELLOW);
+    }
+    else if (i == 3) {
+      setArmyColor(Color.GREEN);
+    }
+    else {
+      setArmyColor(Color.BLUE);
+    }
   }
 
   public int getNumArmies () {
@@ -87,6 +103,7 @@ public class Country {
     g.setColor(MYCOLOR);
     g.fillRect(POSX, POSY, COUNTRYHEIGHT, COUNTRYWIDTH);
     g.setColor(armyColor);
+    g.drawString(Integer.toString(numArmies), POSX, POSY);
   }
 
   public boolean isIn (int x, int y) {

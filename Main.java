@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.lang.Math;
 
 public class Main extends JPanel implements MouseListener{
   static int mouseX;
@@ -44,20 +45,22 @@ public class Main extends JPanel implements MouseListener{
       playerArray[i] = new Player(i);
     }
 
-    //Initially assignment of countries to players
+    //Initial assignment of countries to players
     int order = 0;
+    int tempC;
     for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
-      w.countriesArray[chooseCountry()].setOwner(playerArray[order].getMyNum());
-      if (order == (NUMPLAYERS-1)) {
-        order = 0;
+      tempC = chooseCountry();
+      if (w.countriesArray[tempC].getOwner() == 10) {
+        w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
       }
       else {
-        order++;
+        System.out.println ("That country has already been chosen by another player.");
       }
+
+      order=endTurn(order);
     }
 
     //Game play
-
     order = 0;
     while (GAMEOVER == false) {
       play(playerArray[order]);
@@ -110,21 +113,15 @@ public class Main extends JPanel implements MouseListener{
   }
 
   public static void play (Player p) {
-
+    placeArmies(p);
+    attack(p);
   }
-
-  /*public static void collectArmies(Player p) {
-    int i = p.getNumCountries() /3 + p.getNumContinents();
-
-    //If cash cards... BUTTON
-    i += cashCards(p);
-    return i;
-  }*/
 
   //Cash cards: add armies, subtract cards
   public static int cashCards(Player p) {
-    p.subtractCard();
-    return p.getNumCards()/3;
+    int i = p.getNumCards();
+    p.subtractCards();
+    return i;
   }
 
   //MOUSE LISTENER
@@ -132,28 +129,52 @@ public class Main extends JPanel implements MouseListener{
     int count = p.countNumArmiesToCollect();
     //If true...
     count += cashCards(p);
-    int temp;
-
+    Country tempC;
     for (int i = 0; i < count; i++) {
-      while (w.countriesArray[chooseCountry()].getOwner() != p.getMyNum()) {
-        System.out.println ("Choose one of your countries.");
+      tempC = w.countriesArray[chooseCountry()];
+      while (tempC.getOwner() != p.getMyNum()) {
+        System.out.println ("Choose one of your own countries.");
+        tempC = w.countriesArray[chooseCountry()];
       }
-      w.countriesArray[chooseCountry()].addArmy(1);
+      tempC.addArmy(1);
     }
   }
 
   public static void attack(Player p) {
-    while (w.countriesArray[chooseCountry()].getOwner() != p.getMyNum()) {
-      System.out.println ("Choose one of your own countries.");
+    System.out.println ("Choose a country from which to attack. ");
+    Country tempA = w.countriesArray[chooseCountry()];
+    while ((tempA.getOwner() != p.getMyNum()) || (tempA.getNumArmies() == 1)) {
+      System.out.println ("Invalid: Attack from one of your countries with 2+ armies.");
+      tempA = w.countriesArray[chooseCountry()];
+    }
+    System.out.println ("Choose a country to attack. ");
+    Country tempD = w.countriesArray[chooseCountry()];
+    while (tempD.getOwner() == p.getMyNum() /* || Connection*/) {
+      System.out.println ("Choose someone else's country to attack.");
+      tempD = w.countriesArray[chooseCountry()];
     }
 
-    //You have chosen country a.
-    //Choose country b.
-    //While isConnected == false, re-choose.
-    /*
-    for (int i = 0; i < countryArray[a].getNumArmies())
+    int A1 = (int)(Math.random()*5+1.0);
+    int A2 = 0;
+    int A3 = 0;
+    int D1 = (int)(Math.random()*5+1.0);
+    int D2 = 0;
+    int AUse1 = 0;
+    int AUse2 = 0;
+    int DUse1 = 0;
+    int DUse2 = 0;
+    if (tempA.getNumArmies() > 2) {
+      A2 = (int)(Math.random()*5+1.0);
+      if (tempA.getNumArmies() > 3) {
+        A3 = (int)(Math.random()*5+1.0);
+      }
+    }
+    if (tempD.getNumArmies() > 1) {
+      D2 = (int)(Math.random()*5+1.0);
+    }
 
-    */
+    System.out.println ("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from " + tempA.getName() + " to " + tempD.getName() + ".");
+    //System.out.println ("Player " + tempA.getOwner() + " rolled a " + intA + " and Player " + tempD.getOwner() + " rolled a " + intB + ".");
 
   }
 
@@ -165,10 +186,7 @@ public class Main extends JPanel implements MouseListener{
     if (o == (NUMPLAYERS-1)) {
       return 0;
     }
-    else {
-      o++;
-    }
-    return o;
+    return o++;
   }
 
   @Override

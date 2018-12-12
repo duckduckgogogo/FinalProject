@@ -4,20 +4,23 @@ import java.awt.Graphics;
 public class Country {
   //private int playerInControl;
   private int numArmies;
-  private final int CONTINENT = 0;
+  private final int CONTINENT;
   //final boolean CAPITAL;
   final String NAME;
   private final int POSX;
   private final int POSY;
-  final int COUNTRYHEIGHT = 10;
-  final int COUNTRYWIDTH = 10;
+  private final int COUNTRYHEIGHT;
+  private final int COUNTRYWIDTH;
   private final Color MYCOLOR;
   private Color armyColor;
-  private int owner = 10;
+  private int owner = 10; 
   final private int ARRAYPOS;
 
-  public Country (String b, int d, int e /*int[] a*/) {
+  public Country (String b, int d, int e, int width, int height, int continent) /*int[] a*/ {
     this.numArmies = 0;
+    this.CONTINENT = continent;
+    this.COUNTRYHEIGHT = height;
+    this.COUNTRYWIDTH = width;
     this.NAME = b;
     //this.MYCOLOR = c;
     this.POSX = d;
@@ -78,14 +81,22 @@ public class Country {
   public Color getColor () {
     return MYCOLOR;
   }
+  
+  public int getWidth() {
+	  return COUNTRYWIDTH;
+  }
+  
+  public int getHeight() {
+	  return COUNTRYHEIGHT;
+  }
 
   public void setArmyColor (Color c) {
     armyColor = c;
   }
-
+  
   public void drawCountry(Graphics g) {
     g.setColor(MYCOLOR);
-    g.fillRect(POSX, POSY, COUNTRYHEIGHT, COUNTRYWIDTH);
+    g.fillRect(POSX, POSY, COUNTRYWIDTH, COUNTRYHEIGHT);
     g.setColor(armyColor);
   }
 

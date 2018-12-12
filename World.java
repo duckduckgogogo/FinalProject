@@ -1,10 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
-<<<<<<< HEAD
-import java.io.PrintWriter;
-=======
->>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 import java.io.File;
 import java.util.Scanner;
 
@@ -24,45 +20,20 @@ public class World {
   }
 
   //Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
-<<<<<<< HEAD
-  private Country[] setCountries (Country[] c, String filename) {
-	  try {
-	    File input = new File(filename);
-	    Scanner sc = new Scanner(input);
-	    for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
-
-	    	String[] countryInfo = sc.nextLine().split(",");
-			String countryName = countryInfo[0];
-			int countryX = Integer.parseInt(countryInfo[1]);
-			int countryY = Integer.parseInt(countryInfo[2]);
-			int countryWidth = Integer.parseInt(countryInfo[3]);
-			int countryHeight = Integer.parseInt(countryInfo[4]);
-			int countryContinent = Integer.parseInt(countryInfo[5]);
-	    	c[i] = new Country(countryName, countryX, countryY, countryWidth, countryHeight, countryContinent);
-	    	System.out.println();
-	    	}
-		}
-		catch(FileNotFoundException e) {
-		    System.err.println("File not found.");
-		    System.err.println(e);
-		}
-
-	/*c[0] = new Country ("A", 10, 10, 30, 10, 1);
-    c[1] = new Country ("B", 300, 250, 30, 50, 1);
-    c[2] = new Country ("C", 40, 40, 30, 15, 1);
-    c[3] = new Country ("D", 100, 120, 30, 70, 1);
-    c[4] = new Country ("E", 70, 70, 10, 40, 1);
-=======
   private Country[] setCountries (Country[] c) {
     c[0] = new Country ("A", 10, 10, 30, 10);
     c[1] = new Country ("B", 300, 250, 30, 50);
     c[2] = new Country ("C", 40, 40, 30, 15);
     c[3] = new Country ("D", 100, 120, 30, 70);
     c[4] = new Country ("E", 70, 70, 10, 40);
->>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
     //SHU AMANO
     //TEXT FILE */
 	  return c;
+=======
+
+
+	  return c;
+>>>>>>> 27cc1e7131de058f3923d16df9391542780b32ec
   }
 
   //Connect countries: (int country1, int country2)

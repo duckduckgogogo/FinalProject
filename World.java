@@ -30,7 +30,7 @@ public class World {
 	    File input = new File(filename);
 	    Scanner sc = new Scanner(input);
 	    for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
-	    	
+
 	    	String[] countryInfo = sc.nextLine().split(",");
 			String countryName = countryInfo[0];
 			int countryX = Integer.parseInt(countryInfo[1]);
@@ -46,7 +46,7 @@ public class World {
 		    System.err.println("File not found.");
 		    System.err.println(e);
 		}
-	  
+
 	/*c[0] = new Country ("A", 10, 10, 30, 10, 1);
     c[1] = new Country ("B", 300, 250, 30, 50, 1);
     c[2] = new Country ("C", 40, 40, 30, 15, 1);
@@ -62,7 +62,7 @@ public class World {
 >>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
     //SHU AMANO
     //TEXT FILE */
-	  return c; 
+	  return c;
   }
 
   //Connect countries: (int country1, int country2)

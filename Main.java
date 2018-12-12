@@ -10,24 +10,24 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.lang.Math;
 
-public class Main extends JPanel implements MouseListener{
-  static int mouseX;
-  static int mouseY;
-  final int HEIGHT = 600;
-  final int WIDTH = 1000;
-  public static Scanner keyboard = new Scanner (System.in);
-  static World w;
-  static boolean GAMEOVER = false;
-  static int state = 0; //Necessary?
-  static int NUMPLAYERS;
+public class Main extends JPanel implements MouseListener {
+	static int mouseX;
+	static int mouseY;
+	final int HEIGHT = 600;
+	final int WIDTH = 1000;
+	public static Scanner keyboard = new Scanner(System.in);
+	static World w;
+	static boolean GAMEOVER = false;
+	static int state = 0; // Necessary?
+	static int NUMPLAYERS;
 
-  public Main () {
-    w = new World();
-    this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-    addMouseListener(this);
-  }
+	public Main() {
+		w = new World();
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		addMouseListener(this);
+	}
 
-  public static void main (String[] args) {
+	public static void main (String[] args) {
     //Frame
     JFrame frame = new JFrame ("Risky Business.");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,31 +48,40 @@ public class Main extends JPanel implements MouseListener{
     //Initial assignment of countries to players
     int order = 0;
     int tempC;
-    for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
-      tempC = chooseCountry();
-      if (w.countriesArray[tempC].getOwner() == 10) {
-        w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
-      }
-      else {
-        System.out.println ("That country has already been chosen by another player.");
-      }
+    while (w.isAllClaimed(w.countriesArray) == false) {
+        for (int j = 0; j < NUMPLAYERS; j++) {
+        	System.out.println("Please select a country you wish to claim, Player " + (j + 1) + ".");
+        	tempC = chooseCountry();
+        	while (w.countriesArray[tempC].getOwner() != 10) {
+        		tempC = chooseCountry();
+        		System.out.println ("That country has already been claimed by another player.");
+        	}
+        	w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
+        	System.out.println("Player " + (j + 1) + " has claimed " +  w.countriesArray[tempC].getName() + ".");
+        	if (w.isAllClaimed(w.countriesArray)) {
+        		break;
+        	}
+        }
+    }	
+    
 
-      order=endTurn(order);
-    }
+    order=endTurn(order);
+    
 
-    //Game play
-    order = 0;
-    while (GAMEOVER == false) {
-      play(playerArray[order]);
-      order = endTurn(order);
-    }
+	// Game play
+	order=0;while(GAMEOVER==false)
 
-    //Graphics g;
-    //w.drawCountries(g);
-  }
+	{
+		play(playerArray[order]);
+		order = endTurn(order);
+	}
 
-  //WHAT DOES PAINTCOMPONENT DO?
-  public void paintComponent (Graphics g) {
+	// Graphics g;
+	// w.drawCountries(g);
+	}
+
+	// WHAT DOES PAINTCOMPONENT DO?
+	public void paintComponent (Graphics g) {
     super.paintComponent(g);
     g.setColor(Color.BLACK);
     g.fillRect(0,0, WIDTH, HEIGHT);
@@ -80,8 +89,8 @@ public class Main extends JPanel implements MouseListener{
     w.drawAllConnections(g);
   }
 
-  //SHU: MOUSE ACTION LISTENER
-  public static int chooseCountry(){
+	// SHU: MOUSE ACTION LISTENER
+	public static int chooseCountry(){
     mouseX = -1;
     mouseY = -1;
 
@@ -104,7 +113,6 @@ public class Main extends JPanel implements MouseListener{
           int y = w.countriesArray[i].getPosY();
           // CHANGE COUNTRY HEIGHT VALUE
           if (w.countriesArray[i].isIn(mouseX,mouseY)) {
-            System.out.println(i);
             return i;
           }
         }
@@ -113,154 +121,97 @@ public class Main extends JPanel implements MouseListener{
     }
   }
 
-  public static void play (Player p) {
-    placeArmies(p);
-    attack(p);
-  }
+	public static void play(Player p) {
+		placeArmies(p);
+		attack(p);
+	}
 
-  //Cash cards: add armies, subtract cards
-  public static int cashCards(Player p) {
-    int i = p.getNumCards();
-    p.subtractCards();
-    return i;
-  }
+	// Cash cards: add armies, subtract cards
+	public static int cashCards(Player p) {
+		int i = p.getNumCards();
+		p.subtractCards();
+		return i;
+	}
 
-  //MOUSE LISTENER
-  public static void placeArmies(Player p) {
-    int count = p.countNumArmiesToCollect();
-    //If true...
-    count += cashCards(p);
-    Country tempC;
-    for (int i = 0; i < count; i++) {
-      tempC = w.countriesArray[chooseCountry()];
-      while (tempC.getOwner() != p.getMyNum()) {
-        System.out.println ("Choose one of your own countries.");
-        tempC = w.countriesArray[chooseCountry()];
-      }
-      tempC.addArmy(1);
-    }
-  }
+	// MOUSE LISTENER
+	public static void placeArmies(Player p) {
+		int count = p.countNumArmiesToCollect();
+		// If true...
+		count += cashCards(p);
+		Country tempC;
+		for (int i = 0; i < count; i++) {
+			tempC = w.countriesArray[chooseCountry()];
+			while (tempC.getOwner() != p.getMyNum()) {
+				System.out.println("Choose one of your own countries.");
+				tempC = w.countriesArray[chooseCountry()];
+			}
+			tempC.addArmy(1);
+		}
+	}
 
-  public static void attack(Player p) {
-    System.out.println ("Choose a country from which to attack. ");
-    Country tempA = w.countriesArray[chooseCountry()];
-    while ((tempA.getOwner() != p.getMyNum()) || (tempA.getNumArmies() == 1)) {
-      System.out.println ("Invalid: Attack from one of your countries with 2+ armies.");
-      tempA = w.countriesArray[chooseCountry()];
-    }
-    System.out.println ("Choose a country to attack. ");
-    Country tempD = w.countriesArray[chooseCountry()];
-    while (tempD.getOwner() == p.getMyNum() /* || Connection*/) {
-      System.out.println ("Choose someone else's country to attack.");
-      tempD = w.countriesArray[chooseCountry()];
-    }
+	public static void attack(Player p) {
+		System.out.println("Choose a country from which to attack. ");
+		Country tempA = w.countriesArray[chooseCountry()];
+		while ((tempA.getOwner() != p.getMyNum()) || (tempA.getNumArmies() == 1)) {
+			System.out.println("Invalid: Attack from one of your countries with 2+ armies.");
+			tempA = w.countriesArray[chooseCountry()];
+		}
+		System.out.println("Choose a country to attack. ");
+		Country tempD = w.countriesArray[chooseCountry()];
+		while (tempD.getOwner() == p.getMyNum() /* || Connection */) {
+			System.out.println("Choose someone else's country to attack.");
+			tempD = w.countriesArray[chooseCountry()];
+		}
+		/*
+		 * int A1 = (int)(Math.random()*5+1.0); int A2 = 0; int A3 = 0; int D1 =
+		 * (int)(Math.random()*5+1.0); int D2 = 0; int AUse1 = 0; int AUse2 = 0; int
+		 * DUse1 = 0; int DUse2 = 0;
+		 * 
+		 * //Roll dice based on number of armies if (tempA.getNumArmies() > 2) { A2 =
+		 * (int)(Math.random()*5+1.0); if (tempA.getNumArmies() > 3) { A3 =
+		 * (int)(Math.random()*5+1.0); } } if (tempD.getNumArmies() > 1) { D2 =
+		 * (int)(Math.random()*5+1.0); }
+		 * 
+		 * //Order and match dice //D1 biggest if (D1 >= D2) { DUse1 = D1; DUse2 = D2; }
+		 * //D2 biggest else { DUse1 = D2; DUse2 = D1; } //A1 biggest if ((A1 >= A2) &&
+		 * (A1 >= A3)) { AUse1 = A1; if (A2 >= A3) { AUse2 = A2; AUse3 = A3; } else {
+		 * AUse2 = A3; AUse3 = A2; } } //A2 biggest else if ((A2 >= A1) && (A2 >= A3)) {
+		 * AUse1 = A2; if (A1 >= A3) { AUse2 = A1; AUse3 = A3; } else { AUse2 = A3;
+		 * AUse3 = A1; } } //A3 biggest else if ((A3 >= A1) && (A3 >= A2)) { AUse1 = A1;
+		 * if (A1 >= A2) { AUse2 = A1; AUse3 = A2; } else { AUse2 = A2; AUse3 = A1; } }
+		 */
 
-    System.out.println ("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from " + tempA.getName() + " to " + tempD.getName() + ".");
+		System.out.println("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from "
+				+ tempA.getName() + " to " + tempD.getName() + ".");
 
-    int A1 = (int)(Math.random()*5+1.0);
-    System.out.print ("Player " + tempA.getOwner() + " rolled a " + A1);
-    int A2 = 0;
-    int A3 = 0;
-    int AUse1 = 0;
-    int AUse2 = 0;
-    int AUse3 = 0;
-    //Roll dice based on number of armies
-    if (tempA.getNumArmies() > 2) {
-      A2 = (int)(Math.random()*5+1.0);
-      System.out.print (", " + A2);
-      if (tempA.getNumArmies() > 3) {
-        A3 = (int)(Math.random()*5+1.0);
-        System.out.print (", " + A3);
-      }
-    }
-    //A1 biggest
-    if ((A1 >= A2) && (A1 >= A3)) {
-      AUse1 = A1;
-      if (A2 >= A3) {
-        AUse2 = A2;
-        AUse3 = A3;
-      }
-      else {
-        AUse2 = A3;
-        AUse3 = A2;
-      }
-    }
-    //A2 biggest
-    else if ((A2 >= A1) && (A2 >= A3)) {
-      AUse1 = A2;
-      if (A1 >= A3) {
-        AUse2 = A1;
-        AUse3 = A3;
-      }
-      else {
-        AUse2 = A3;
-        AUse3 = A1;
-      }
-    }
-    //A3 biggest
-    else if ((A3 >= A1) && (A3 >= A2)) {
-      AUse1 = A1;
-      if (A1 >= A2) {
-        AUse2 = A1;
-        AUse3 = A2;
-      }
-      else {
-        AUse2 = A2;
-        AUse3 = A1;
-      }
-    }
+	}
 
-    int D1 = (int)(Math.random()*5+1.0);
-    int D2 = 0;
+	public static void moveArmies() {
 
-    if (tempD.getNumArmies() > 1) {
-      D2 = (int)(Math.random()*5+1.0);
-    }
-    int DUse1 = 0;
-    int DUse2 = 0;
+	}
 
-    //Order and match dice
-    //D1 biggest
-    if (D1 >= D2) {
-        DUse1 = D1;
-        DUse2 = D2;
-    }
-    //D2 biggest
-    else {
-      DUse1 = D2;
-      DUse2 = D1;
-    }
+	public static int endTurn(int o) {
+		if (o == (NUMPLAYERS - 1)) {
+			return 0;
+		}
+		return o++;
+	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {}
 
+	@Override
+	public void mouseEntered(MouseEvent e) {}
 
-  }
+	@Override
+	public void mouseExited(MouseEvent e) {}
 
-  public static void moveArmies() {
+	@Override
+	public void mousePressed(MouseEvent e) {
+		mouseX = e.getX();
+		mouseY = e.getY();
+	}
 
-  }
-
-  public static int endTurn (int o) {
-    if (o == (NUMPLAYERS-1)) {
-      return 0;
-    }
-    return o++;
-  }
-
-  @Override
-  public void mouseClicked(MouseEvent e) {
-  }
-  @Override
-  public void mouseEntered(MouseEvent e) {
-  }
-  @Override
-  public void mouseExited(MouseEvent e) {
-  }
-  @Override
-  public void mousePressed(MouseEvent e) {
-    mouseX = e.getX();
-    mouseY = e.getY();
-  }
-  @Override
-  public void mouseReleased(MouseEvent e) {
-  }
+	@Override
+	public void mouseReleased(MouseEvent e) {}
 }

@@ -44,16 +44,6 @@ public class World {
 		return c;
 	}
 
-	// Connect countries: (int country1, int country2)
-	/*
-	 * private void connect (int[][] a, int c1, int c2) {
-	 * 
-	 * 
-	 * a[c1][c2] = 1; a[c2][c1] = 1; }
-	 */
-
-	// Set all the country connections using the connect method
-	
 	// Create a Connection Matrix that represents all connections between countries
 	private int[][] setConnections(int[][] a, String filename) { 
 		try {
@@ -72,15 +62,25 @@ public class World {
 		}
 		return a;
 	}
-	// connect (a, 0, 1);
-	// SHU AMANO
-	// TEXT FILE
-	// return a;
-	// }
-
+	
 	// Check if two countries are connected
 	public Boolean isConnected(int i, int j) {
 		if (CONNECTIONS[i][j] == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}	
+	
+	// Check if everything is country is claimed 
+	public Boolean isAllClaimed(Country[] c) {
+		int numClaimed = 0;
+		for (int i = 0; i < TOTALNUMCOUNTRIES; i ++) {
+			if (c[i].getOwner() != 10) {
+				numClaimed ++;
+			}
+		}
+		if (numClaimed == TOTALNUMCOUNTRIES) {
 			return true;
 		} else {
 			return false;

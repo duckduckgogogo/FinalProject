@@ -36,6 +36,7 @@ public class Main extends JPanel implements MouseListener{
     frame.setContentPane(mainInstance);
     frame.pack();
     frame.setVisible(true);
+
     //Initialize playerArray
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
     Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
@@ -119,7 +120,7 @@ public class Main extends JPanel implements MouseListener{
           int y = w.countriesArray[i].getPosY();
           // CHANGE COUNTRY HEIGHT VALUE
           if (w.countriesArray[i].isIn(mouseX,mouseY)) {
-            return i;
+        	  return i;
           }
         }
         System.out.println("That is not a country. Please click on a country.");
@@ -292,14 +293,7 @@ public class Main extends JPanel implements MouseListener{
     return o++;
   }
 
-  public static boolean checkWin () {
-    int m = w.countriesArray[0].getOwner();
-    for (int i = 1; i < w.TOTALNUMCOUNTRIES; i++) {
-      if (w.countriesArray[i].getOwner() != m) {
-        return false;
-      }
-    }
-    return true;
+  public static void checkWin() {
   }
 
   @Override

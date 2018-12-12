@@ -130,7 +130,7 @@ public class Country {
   private final int COUNTRYWIDTH;
   private final Color MYCOLOR;
   private Color armyColor;
-  private int owner = 10; 
+  private int owner = 10;
   final private int ARRAYPOS;
 
   public Country (String b, int d, int e, int width, int height, int continent) /*int[] a*/ {
@@ -198,11 +198,11 @@ public class Country {
   public Color getColor () {
     return MYCOLOR;
   }
-  
+
   public int getWidth() {
 	  return COUNTRYWIDTH;
   }
-  
+
   public int getHeight() {
 	  return COUNTRYHEIGHT;
   }
@@ -210,7 +210,7 @@ public class Country {
   public void setArmyColor (Color c) {
     armyColor = c;
   }
-  
+
   public void drawCountry(Graphics g) {
     g.setColor(MYCOLOR);
     g.fillRect(POSX, POSY, COUNTRYWIDTH, COUNTRYHEIGHT);

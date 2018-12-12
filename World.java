@@ -121,6 +121,22 @@ public class World {
 		}
 	}
 	
+	// Check if everything is country is claimed 
+	public Boolean isAllClaimed(Country[] c) {
+		int numClaimed = 0;
+		for (int i = 0; i < TOTALNUMCOUNTRIES; i ++) {
+			if (c[i].getOwner() != 10) {
+				numClaimed ++;
+			}
+		}
+		if (numClaimed == TOTALNUMCOUNTRIES) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	
 	// Update world
 	/*
 	 * public void updateWorld () { drawCountries(countriesArray); }

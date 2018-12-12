@@ -49,17 +49,20 @@ public class Main extends JPanel implements MouseListener{
     System.out.println ("Players take turns claiming a country.");
     int order = 0;
     int tempC;
-    for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
-      tempC = chooseCountry();
-      if (w.countriesArray[tempC].getOwner() == 10) {
-        w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
-        playerArray[order].addCountry();
-      }
-      else {
-        System.out.println ("That country has already been chosen by another player.");
-      }
-
-      order=endTurn(order);
+    while (w.isAllClaimed(w.countriesArray) == false) {
+        for (int j = 0; j < NUMPLAYERS; j++) {
+        	System.out.println("Please select a country you wish to claim, Player " + (j + 1) + ".");
+        	tempC = chooseCountry();
+        	while (w.countriesArray[tempC].getOwner() != 10) {
+        		tempC = chooseCountry();
+        		System.out.println ("That country has already been claimed by another player.");
+        	}
+        	w.countriesArray[tempC].setOwner(playerArray[order].getMyNum());
+        	System.out.println("Player " + (j + 1) + " has claimed " +  w.countriesArray[tempC].getName() + ".");
+        	if (w.isAllClaimed(w.countriesArray)) {
+        		break;
+        	}
+        }
     }
     System.out.println ("All the countries have been chosen.");
 

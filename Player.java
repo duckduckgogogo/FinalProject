@@ -30,10 +30,10 @@ public class Player {
       MYPLAYERCOLOR = Color.BLUE;
     }
     else if (i == 3) {
-      MYPLAYERCOLOR = Color.PURPLE;
+      MYPLAYERCOLOR = Color.CYAN;
     }
     else {
-      MYPLAYERCOLOR = Color.BROWN;
+      MYPLAYERCOLOR = Color.LIGHT_GRAY;
     }
   }
 

@@ -70,13 +70,13 @@ public class Country {
       setArmyColor(Color.ORANGE);
     }
     else if (i == 2) {
-      setArmyColor(Color.CYAN);
+      setArmyColor(Color.BLUE);
     }
     else if (i == 3) {
-      setArmyColor(Color.PURPLE);
+      setArmyColor(Color.CYAN);
     }
     else {
-      setArmyColor(Color.BROWN);
+      setArmyColor(Color.LIGHT_GRAY);
     }
   }
 

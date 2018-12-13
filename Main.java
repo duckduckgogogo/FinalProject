@@ -298,6 +298,7 @@ public class Main extends JPanel implements MouseListener{
 
   @Override
   public void mouseClicked(MouseEvent e) {
+    mainInstance.repaint();
   }
   @Override
   public void mouseEntered(MouseEvent e) {
@@ -309,9 +310,9 @@ public class Main extends JPanel implements MouseListener{
   public void mousePressed(MouseEvent e) {
     mouseX = e.getX();
     mouseY = e.getY();
-    mainInstance.repaint();
   }
   @Override
   public void mouseReleased(MouseEvent e) {
+    mainInstance.repaint();
   }
 }

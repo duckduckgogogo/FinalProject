@@ -395,3 +395,5 @@ public class Main extends JPanel implements MouseListener{
     mainInstance.repaint();
   }
 }
+// class Main
+// =============================================================================

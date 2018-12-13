@@ -28,9 +28,6 @@ public class World {
 // =============================================================================
 	// CONSTRUCTOR
 	public World() {
-		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) { // Instantiate cards: 1 card per country, available
-			cardsArray[i] = new Card(i);
-		}
 		countriesArray = setCountries(countriesArray, "CountryData"); // Instantiate countries
 		CONNECTIONS = setConnections(CONNECTIONS, "Connections");
 	}
@@ -101,7 +98,7 @@ public class World {
 	}
 
 // =============================================================================
-	// drawConnection(): draws connections between two countries
+	// drawConnection(): draws connection between two countries
 	public void drawConnection(Graphics g, int i, int j) {
 		int icenterX = (int) (countriesArray[i].getPosX() + Math.round(0.5*countriesArray[i].getWidth()));
 		int icenterY = (int) (countriesArray[i].getPosY() + Math.round(0.5*countriesArray[i].getHeight()));
@@ -117,7 +114,8 @@ public class World {
 
 	}
 
-	// Draw connections between ALL countries
+// =============================================================================
+	// drawAllConections(): draws connections between all countries
 	public void drawAllConnections(Graphics g) {
 		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
 			for (int j = i; j < TOTALNUMCOUNTRIES; j++) {
@@ -128,7 +126,8 @@ public class World {
 		}
 	}
 
-	// Check if everything is country is claimed
+// =============================================================================
+	// isAllClaimed(): checks if all countries are claimed
 	public Boolean isAllClaimed(Country[] c) {
 		int numClaimed = 0;
 		for (int i = 0; i < TOTALNUMCOUNTRIES; i ++) {
@@ -144,11 +143,12 @@ public class World {
 	}
 
 
-	// Update world
-
+// =============================================================================
+// updateWorld(): updates drawings of countries and connections
 	public void updateWorld (Graphics g) {
 		drawCountries(g);
 		drawAllConnections(g);
 	}
-
 }
+// class World
+// =============================================================================

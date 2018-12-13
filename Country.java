@@ -28,7 +28,7 @@ public class Country {
   private final Color MYCOLOR;
   private Color armyColor;
   private int owner = 10;
-  final private int ARRAYPOS;
+  private int ARRAYPOS;
 
 // ===========================================================================
 // CONSTRUCTOR: initializes variables
@@ -164,6 +164,13 @@ public class Country {
   public void setArmyColor (Color c) {
     armyColor = c;
   }
+  
+
+//=============================================================================
+//setArrayPos(): setter method for ARRAYPOS
+ public void setArrayPos(int pos) {
+    ARRAYPOS = pos;
+ }
 
 // =============================================================================
 // drawCountry(): draws Country's shape, name, and number of armies

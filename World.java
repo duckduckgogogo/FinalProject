@@ -35,6 +35,7 @@ public class World {
 				int countryHeight = Integer.parseInt(countryInfo[4]);
 				int countryContinent = Integer.parseInt(countryInfo[5]);
 				c[i] = new Country(countryName, countryX, countryY, countryWidth, countryHeight, countryContinent);
+				c[i].setArrayPos(i);
 				i++;
 			}
 		} catch (FileNotFoundException e) {

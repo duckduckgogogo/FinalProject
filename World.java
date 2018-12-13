@@ -36,7 +36,7 @@ public class World {
 	}
 
 // =============================================================================
-	// setCountries(): uses text file to instantiate each Country's 
+	// setCountries(): uses text file to instantiate each Country's specifications
 	private Country[] setCountries(Country[] c, String filename) {
 		try {
 			File input = new File(filename);
@@ -61,17 +61,9 @@ public class World {
 		return c;
 	}
 
-	// Connect countries: (int country1, int country2)
-	/*
-	 * private void connect (int[][] a, int c1, int c2) {
-	 *
-	 *
-	 * a[c1][c2] = 1; a[c2][c1] = 1; }
-	 */
-
-	// Set all the country connections using the connect method
-
-	// Create a Connection Matrix that represents all connections between countries
+// =============================================================================
+// setConnections (): uses text file to create array of which countries are
+// connected
 	private int[][] setConnections(int[][] a, String filename) {
 		try {
 			File input = new File(filename);
@@ -89,13 +81,9 @@ public class World {
 		}
 		return a;
 	}
-	// connect (a, 0, 1);
-	// SHU AMANO
-	// TEXT FILE
-	// return a;
-	// }
 
-	// Check if two countries are connected
+// =============================================================================
+// isConnected(): checks whether 2 countries are connected
 	public Boolean isConnected(int i, int j) {
 		if (CONNECTIONS[i][j] == 1) {
 			return true;
@@ -104,14 +92,16 @@ public class World {
 		}
 	}
 
-	// Draw countries
+// =============================================================================
+// drawCountries(): draws each Country in countriesArray[]
 	public void drawCountries(Graphics g) {
 		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
 			countriesArray[i].drawCountry(g);
 		}
 	}
 
-	// Draws connections between two countries
+// =============================================================================
+	// drawConnection(): draws connections between two countries
 	public void drawConnection(Graphics g, int i, int j) {
 		int icenterX = (int) (countriesArray[i].getPosX() + Math.round(0.5*countriesArray[i].getWidth()));
 		int icenterY = (int) (countriesArray[i].getPosY() + Math.round(0.5*countriesArray[i].getHeight()));

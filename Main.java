@@ -59,7 +59,7 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
-
+		
 		// Initialize playerArray[]: size specified by user
 		Object[] numPlayerOptions = { 2, 3, 4, 5, 6 };
 		Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players",
@@ -148,19 +148,25 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		System.out.println("Player " + p.getMyNum() + "'s turn.");
 		placeArmies(p);
 		System.out.println("Would you like to attack? (Y/N)");
-		String temp = keyboard.nextLine();
-		while (temp != "N") {
+		String temp = keyboard.next();
+		while (temp.equals("Y")) {
 			attack(p);
 			System.out.println();
 			System.out.println("Would you like to attack? (Y/N)");
-			temp = keyboard.nextLine();
+			temp = keyboard.next();
+			System.out.println(temp);
 		}
 		System.out.println("Would you like to move your armies around? (Y/N)");
-		temp = keyboard.nextLine();
-		while (keyboard.nextLine() == "Y") {
-			moveArmies(w.countriesArray[chooseCountry()], w.countriesArray[chooseCountry()]);
+		temp = keyboard.next();
+		while (temp.equals("Y")) {
+			System.out.println("Choose a country to move the army from.");
+			Country temp1 = w.countriesArray[chooseCountry()];
+			System.out.println("Choose a country to move the army from.");
+			Country temp2 = w.countriesArray[chooseCountry()];
+
+			moveArmies(temp1,temp2);
 			System.out.println("Would you like to move your armies around? (Y/N)");
-			temp = keyboard.nextLine();
+			temp = keyboard.next();
 		}
 		System.out.println("Your turn is over.");
 		if (canGetCard == true) {
@@ -188,7 +194,7 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		System.out.println("Would you like to cash in your " + p.getNumCards() + " cards for " + p.getNumCards()
 				+ " armies? (Y/N)");
 		String input = keyboard.nextLine();
-		if (input == "Y") {
+		if (input.equals("Y")) {
 			count += cashCards(p);
 		}
 		// Player places armies on their countries, using MouseListener

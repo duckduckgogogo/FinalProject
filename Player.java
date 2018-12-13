@@ -1,25 +1,37 @@
+// =============================================================================
+/**
+* Objects of the Player class track their number of countries, color, number of
+* armies, number of cards, and Player number
+*
+* @author Ashira Mawji & Shu Amano
+**/
+// =============================================================================
+
+
+// =============================================================================
+// IMPORTS
 import java.util.ArrayList;
 import java.awt.Color;
 
+// =============================================================================
 public class Player {
 
+// =============================================================================
+// INSTANCE FIELDS
   private final Color MYPLAYERCOLOR;
-  //ArrayList<Card> myCardArrayList = new ArrayList<Card>();
-  //ArrayList<Country> myCountryArrayList = new ArrayList<Country>();
   private int numCountries;
-  private int numContinents;
-  private static int deckCounter = 0;
   private final int MYNUM;
   private int numCards;
   private int numArmies;
 
+// =============================================================================
+// CONSTRUCTOR
   public Player (int i) {
     this.numCountries = 0;
-    this.numContinents = 0;
     this.numCards = 0;
     this.numArmies = 0;
     MYNUM = i;
-
+    // Set color based on Player number
     if (i == 0) {
       MYPLAYERCOLOR = Color.RED;
     }
@@ -37,57 +49,70 @@ public class Player {
     }
   }
 
+// =============================================================================
+// getMyNum(): getter method for MYNUM
   public int getMyNum() {
     return MYNUM;
   }
 
+// =============================================================================
+// addCard(): setter method for numCards
   public void addCard () {
-    if (deckCounter >= World.TOTALNUMCOUNTRIES) {
-      System.out.println ("No cards left in the deck.");
-      return;
-    }
-    World.cardsArray[deckCounter].setOwner(MYNUM);
+    numCards++;
   }
 
+// =============================================================================
+// getNumArmies(): getter method for numArmies
   public int getNumArmies() {
     return numArmies;
   }
 
+// =============================================================================
+// addArmies(): setter method for numArmies, increases by specified amount
   public void addArmies (int i) {
     numArmies += i;
   }
 
-  //Can only redeem all cards at once
+// =============================================================================
+// subtractCards(): setter method for numArmies, resets number of cards to 0
   public void subtractCards () {
     numCards = 0;
   }
 
+// =============================================================================
+// getNumCards(): getter method for numCards
   public int getNumCards () {
     return numCards;
   }
 
+// =============================================================================
+// addCountry(): setter method for numCountries, increments by 1
   public void addCountry() {
     numCountries++;
   }
 
+// =============================================================================
+// subtractCountry(): setter method for numCountries, decrements by 1
   public void subtractCountry() {
     numCountries--;
   }
 
+// =============================================================================
+// getNumCountries(): getter method for numCountries
   public int getNumCountries() {
     return numCountries;
   }
 
-  public int getNumContinents() {
-    return numContinents;
-  }
-
+// =============================================================================
+// getMyColor(): getter method for MYPLAYERCOLOR
   public Color getMyColor () {
     return MYPLAYERCOLOR;
   }
 
-  public int countNumArmiesToCollect (/*something*/) {
-    return (numCountries/3 + numContinents);
+// =============================================================================
+// countNumArmiesToCollect(): counts number of armies for Player to collect
+  public int countNumArmiesToCollect () {
+    return (numCountries/3);
   }
 
 }

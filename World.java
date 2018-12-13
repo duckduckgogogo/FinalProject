@@ -23,12 +23,12 @@ public class World {
 	// INSTANCE FIELDS
 	static final int TOTALNUMCOUNTRIES = 43;
 	static Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
-	static int[][] CONNECTIONS = new int[TOTALNUMCOUNTRIES][TOTALNUMCOUNTRIES]; // final?
+	static int[][] CONNECTIONS = new int[TOTALNUMCOUNTRIES][TOTALNUMCOUNTRIES];
 
 // =============================================================================
 	// CONSTRUCTOR
 	public World() {
-		countriesArray = setCountries(countriesArray, "CountryData"); // Instantiate countries
+		countriesArray = setCountries(countriesArray, "CountryData");
 		CONNECTIONS = setConnections(CONNECTIONS, "Connections");
 	}
 
@@ -81,7 +81,7 @@ public class World {
 
 // =============================================================================
 // isConnected(): checks whether 2 countries are connected
-	public Boolean isConnected(int i, int j) {
+	public boolean isConnected(int i, int j) {
 		if (CONNECTIONS[i][j] == 1) {
 			return true;
 		} else {
@@ -128,7 +128,7 @@ public class World {
 
 // =============================================================================
 	// isAllClaimed(): checks if all countries are claimed
-	public Boolean isAllClaimed(Country[] c) {
+	public boolean isAllClaimed(Country[] c) {
 		int numClaimed = 0;
 		for (int i = 0; i < TOTALNUMCOUNTRIES; i ++) {
 			if (c[i].getOwner() != 10) {

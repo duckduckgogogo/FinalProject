@@ -134,7 +134,7 @@ public class Main extends JPanel implements MouseListener{
         	  return i;
           }
         }
-        System.out.println("Invalid country: Please select a country.");
+        System.out.println("Invalid: Please select a country.");
       }
     }
   }
@@ -142,6 +142,7 @@ public class Main extends JPanel implements MouseListener{
 // =============================================================================
 // play(): Player collects armies, places armies, attacks, and moves armies
   public static void play (Player p) {
+    canGetCard = false;
     System.out.println ("Player " + p.getMyNum() + "'s turn.");
     placeArmies(p);
     System.out.println ("Would you like to attack? (Y/N)");
@@ -159,12 +160,15 @@ public class Main extends JPanel implements MouseListener{
       System.out.println ("Would you like to move your armies around? (Y/N)");
       temp = keyboard.nextLine();
     }
-    System.out.println ("Your turn is over. You have collected a card.");
-    p.addCard();
+    System.out.println ("Your turn is over.");
+    if (canGetCard == true) {
+      System.out.println ("Since you conquered at least one country, you have collected a card.");
+      p.addCard();
+    }
   }
 
 // =============================================================================
-//cashCards(): exchanges all of Player's cards for additional armies
+// cashCards(): exchanges all of Player's cards for additional armies
   public static int cashCards(Player p) {
     int i = p.getNumCards();
     p.subtractCards();
@@ -203,29 +207,32 @@ public class Main extends JPanel implements MouseListener{
 // attack, dice determine how many armies each country loses, if Player conquers
 // Country then Player moves armies there
   public static void attack(Player p) {
+    // Player chooses a country from which to attack
     System.out.println ("Choose a country from which to attack. ");
     Country tempA = w.countriesArray[chooseCountry()];
     while ((tempA.getOwner() != p.getMyNum()) || (tempA.getNumArmies() == 1)) {
       System.out.println ("Invalid: Attack from one of your countries with 2+ armies.");
       tempA = w.countriesArray[chooseCountry()];
     }
+    // Player chooses a country to attack
     System.out.println ("Choose a country to attack. ");
     Country tempD = w.countriesArray[chooseCountry()];
     while ((tempD.getOwner() == p.getMyNum()) || !(w.isConnected(tempA.getArrayPos(), tempD.getArrayPos()))) {
-      System.out.println ("Invalid: Attack an adjacent country owned by another Player.");
+      System.out.println ("Invalid: Attack an adjacent country occupied by another Player.");
       tempD = w.countriesArray[chooseCountry()];
     }
-
     System.out.println ("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from " + tempA.getName() + " to " + tempD.getName() + ".");
-
+    // Dice determine how many armies each country loses, number of dice
+    // determined by number of armies on country
+    // Attacking country's dice
     int A1 = (int)(Math.random()*5+1.0);
     System.out.print ("Player " + tempA.getOwner() + " rolled " + A1);
     int A2 = 0;
     int A3 = 0;
+    // Order dice based on face value
     int AUse1 = 0;
     int AUse2 = 0;
     int AUse3 = 0;
-    //Roll dice based on number of armies
     if (tempA.getNumArmies() > 2) {
       A2 = (int)(Math.random()*5+1.0);
       System.out.print (", " + A2);
@@ -234,7 +241,7 @@ public class Main extends JPanel implements MouseListener{
         System.out.print (", " + A3);
       }
     }
-    //A1 biggest
+    // Case 1: Die 1 is highest
     if ((A1 >= A2) && (A1 >= A3)) {
       AUse1 = A1;
       if (A2 >= A3) {
@@ -246,7 +253,7 @@ public class Main extends JPanel implements MouseListener{
         AUse3 = A2;
       }
     }
-    //A2 biggest
+    // Case 2: Die 2 is highest
     else if ((A2 >= A1) && (A2 >= A3)) {
       AUse1 = A2;
       if (A1 >= A3) {
@@ -258,7 +265,7 @@ public class Main extends JPanel implements MouseListener{
         AUse3 = A1;
       }
     }
-    //A3 biggest
+    // Case 3: Die 3 is highest
     else if ((A3 >= A1) && (A3 >= A2)) {
       AUse1 = A1;
       if (A1 >= A2) {
@@ -271,6 +278,7 @@ public class Main extends JPanel implements MouseListener{
       }
     }
     System.out.println();
+    // Defending country's dice
     int D1 = (int)(Math.random()*5+1.0);
     System.out.print ("Player " + tempD.getOwner() + " rolled " + D1);
     int D2 = 0;
@@ -278,21 +286,20 @@ public class Main extends JPanel implements MouseListener{
       D2 = (int)(Math.random()*5+1.0);
       System.out.print (", " + D2);
     }
+    // Order dice based on face value
     int DUse1 = 0;
     int DUse2 = 0;
-
-    //Order and match dice
-    //D1 biggest
+    // Case 1: Die 1 is highest
     if (D1 >= D2) {
         DUse1 = D1;
         DUse2 = D2;
     }
-    //D2 biggest
+    // Case 2: Die 2 is highest
     else {
       DUse1 = D2;
       DUse2 = D1;
     }
-
+    // Match up attacker's dice and defender's dice in ranked order
     int ALoss = 0;
     int DLoss = 0;
     if (DUse1 >= AUse1) {
@@ -307,22 +314,24 @@ public class Main extends JPanel implements MouseListener{
     else if (DUse2 != 0) {
       DLoss++;
     }
-
+    // Clear fallen soldiers from the battlefield
     tempA.subtractArmy(ALoss);
     tempD.subtractArmy(DLoss);
-
+    // Player moves armies to conquered country, Player can collect a card at
+    // end of turn
     if (tempD.getNumArmies() < 1) {
       moveArmies(tempA, tempD);
       tempD.setOwner(tempA.getOwner());
       canGetCard = true;
-      if (canGetCard == true) {
-
       }
     }
   }
 
+// =============================================================================
+// moveArmies(): Player moves armies between 2 of their countries, using
+// MouseListener
   public static void moveArmies(Country a, Country b) {
-    System.out.println ("You have " + a.getNumArmies() + " armies. How many armies would you like to move from " + a.getName() + " to " + b.getName() + "?");
+    System.out.println ("You have " + a.getNumArmies() + " armies on " + a.getName() + ". How many armies would you like to move to " + b.getName() + "?");
     int t = keyboard.nextInt();
     while ((t < 2) || (t > a.getNumArmies()-1)) {
       System.out.println ("Invalid: Move between 1 and " + (a.getNumArmies()-1) + " armies.");
@@ -332,6 +341,8 @@ public class Main extends JPanel implements MouseListener{
     b.addArmy(t);
   }
 
+// =============================================================================
+// endTurn(): toggles Player turn
   public static int endTurn (int o) {
     if (o == (NUMPLAYERS-1)) {
       return 0;
@@ -339,6 +350,8 @@ public class Main extends JPanel implements MouseListener{
     return o++;
   }
 
+// =============================================================================
+// checkWin(): checks if one Player owns every country
   public static void checkWin() {
     int o = w.countriesArray[0].getOwner();
     for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
@@ -348,22 +361,30 @@ public class Main extends JPanel implements MouseListener{
     }
     return true;
   }
-
+// =============================================================================
   @Override
   public void mouseClicked(MouseEvent e) {
     mainInstance.repaint();
   }
+
+// =============================================================================
   @Override
   public void mouseEntered(MouseEvent e) {
   }
+
+// =============================================================================
   @Override
   public void mouseExited(MouseEvent e) {
   }
+
+// =============================================================================
   @Override
   public void mousePressed(MouseEvent e) {
     mouseX = e.getX();
     mouseY = e.getY();
   }
+
+// =============================================================================
   @Override
   public void mouseReleased(MouseEvent e) {
     mainInstance.repaint();

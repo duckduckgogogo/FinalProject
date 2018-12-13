@@ -1,3 +1,14 @@
+// =============================================================================
+/**
+* World contains array of countries, connections between countries
+*
+* @author Ashira Mawji & Shu Amano
+**/
+// =============================================================================
+
+
+// =============================================================================
+// IMPORTS
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
@@ -5,13 +16,17 @@ import java.io.PrintWriter;
 import java.io.File;
 import java.util.Scanner;
 
+// =============================================================================
 public class World {
+
+	// =============================================================================
+	// INSTANCE FIELDS
 	static final int TOTALNUMCOUNTRIES = 43;
 	static Country[] countriesArray = new Country[TOTALNUMCOUNTRIES];
-	static Card[] cardsArray = new Card[TOTALNUMCOUNTRIES];
 	static int[][] CONNECTIONS = new int[TOTALNUMCOUNTRIES][TOTALNUMCOUNTRIES]; // final?
 
-	// Constructor
+// =============================================================================
+	// CONSTRUCTOR
 	public World() {
 		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) { // Instantiate cards: 1 card per country, available
 			cardsArray[i] = new Card(i);
@@ -20,7 +35,8 @@ public class World {
 		CONNECTIONS = setConnections(CONNECTIONS, "Connections");
 	}
 
-	// Instantiate countries (int numArmies, int CONTINENT, String name, Color d)
+// =============================================================================
+	// setCountries(): uses text file to instantiate each Country's 
 	private Country[] setCountries(Country[] c, String filename) {
 		try {
 			File input = new File(filename);
@@ -48,23 +64,23 @@ public class World {
 	// Connect countries: (int country1, int country2)
 	/*
 	 * private void connect (int[][] a, int c1, int c2) {
-	 * 
-	 * 
+	 *
+	 *
 	 * a[c1][c2] = 1; a[c2][c1] = 1; }
 	 */
 
 	// Set all the country connections using the connect method
-	
+
 	// Create a Connection Matrix that represents all connections between countries
-	private int[][] setConnections(int[][] a, String filename) { 
+	private int[][] setConnections(int[][] a, String filename) {
 		try {
 			File input = new File(filename);
 			Scanner sc = new Scanner(input);
-			
-			for (int i = 0; i < TOTALNUMCOUNTRIES; i++) { 
+
+			for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
 				String[] connectionInfo = sc.nextLine().split(",");
 				for (int j = 0; j < TOTALNUMCOUNTRIES; j++) {
-					a[i][j] = Integer.parseInt(connectionInfo[j]); 
+					a[i][j] = Integer.parseInt(connectionInfo[j]);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -87,7 +103,7 @@ public class World {
 			return false;
 		}
 	}
-	
+
 	// Draw countries
 	public void drawCountries(Graphics g) {
 		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
@@ -110,7 +126,7 @@ public class World {
 		}
 
 	}
-	
+
 	// Draw connections between ALL countries
 	public void drawAllConnections(Graphics g) {
 		for (int i = 0; i < TOTALNUMCOUNTRIES; i++) {
@@ -121,8 +137,8 @@ public class World {
 			}
 		}
 	}
-	
-	// Check if everything is country is claimed 
+
+	// Check if everything is country is claimed
 	public Boolean isAllClaimed(Country[] c) {
 		int numClaimed = 0;
 		for (int i = 0; i < TOTALNUMCOUNTRIES; i ++) {
@@ -137,12 +153,12 @@ public class World {
 		}
 	}
 
-	
+
 	// Update world
-	
-	public void updateWorld (Graphics g) { 
-		drawCountries(g); 
+
+	public void updateWorld (Graphics g) {
+		drawCountries(g);
 		drawAllConnections(g);
 	}
-	
+
 }

@@ -131,8 +131,21 @@ public class Main extends JPanel implements MouseListener{
   public static void play (Player p) {
     System.out.println ("Player " + p.getMyNum() + "'s turn.");
     placeArmies(p);
-    
-    attack(p);
+    System.out.println ("Would you like to attack? (Y/N)");
+    String temp = keyboard.nextLine();
+    while (temp == "Y") {
+      attack(p);
+      System.out.println ("Would you like to attack? (Y/N)");
+      temp = keyboard.nextLine();
+    }
+    System.out.println ("Would you like to move your armies around? (Y/N)");
+    temp = keyboard.nextLine();
+    while (keyboard.nextLine() == "Y") {
+      moveArmies(w.countriesArray[chooseCountry()], w.countriesArray[chooseCountry()]);
+      System.out.println ("Would you like to move your armies around? (Y/N)");
+      temp = keyboard.nextLine();
+    }
+    System.out.println ("Your turn is over.");
   }
 
   //Cash cards: add armies, subtract cards

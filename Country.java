@@ -27,19 +27,19 @@ public class Country {
     this.POSY = e;
     this.ARRAYPOS = 0;
     if (continent == 1) {
-    	this.MYCOLOR = Color.BLUE;
+    	this.MYCOLOR = new Color(216,191,216);
     } else if (continent == 2){
-    	this.MYCOLOR = Color.RED;
+    	this.MYCOLOR = new Color(218,112,214);
     } else if (continent == 3){
-    	this.MYCOLOR = Color.CYAN;
+    	this.MYCOLOR = new Color(255,0,255);
     } else if (continent == 4){
-    	this.MYCOLOR = Color.GREEN;
+    	this.MYCOLOR = new Color(148,0,211);
     } else if (continent == 5){
-    	this.MYCOLOR = Color.MAGENTA;
+    	this.MYCOLOR = new Color(147,112,219);
     } else if (continent == 6) {
-    	this.MYCOLOR = Color.ORANGE;
+    	this.MYCOLOR = new Color(139,0,139);
     } else {
-    	this.MYCOLOR = Color.PINK;
+    	this.MYCOLOR = new Color(75,0,130);
     }
 
 
@@ -67,16 +67,18 @@ public class Country {
       setArmyColor(Color.RED);
     }
     else if (i == 1) {
-      setArmyColor(Color.ORANGE);
+      setArmyColor(new Color(255,152,0));
     }
     else if (i == 2) {
-      setArmyColor(Color.BLUE);
+      setArmyColor(Color.YELLOW);
     }
     else if (i == 3) {
       setArmyColor(Color.CYAN);
     }
-    else {
-      setArmyColor(Color.LIGHT_GRAY);
+    else if (i == 4){
+      setArmyColor(new Color(0,204,0));
+    } else {
+      setArmyColor(new Color(160,160,160));
     }
   }
 

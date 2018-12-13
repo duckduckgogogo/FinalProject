@@ -67,17 +67,18 @@ public class Country {
       setArmyColor(Color.RED);
     }
     else if (i == 1) {
-      setArmyColor(new Color(255,152,0));
+    	setArmyColor(Color.CYAN);
     }
     else if (i == 2) {
-      setArmyColor(Color.YELLOW);
+      setArmyColor(new Color(255,152,0));
     }
-    else if (i == 3) {
-      setArmyColor(Color.CYAN);
+    else if (i == 3){
+        setArmyColor(new Color(0,204,0));
+      }
+    else if (i == 4) {
+        setArmyColor(Color.YELLOW);
     }
-    else if (i == 4){
-      setArmyColor(new Color(0,204,0));
-    } else {
+     else {
       setArmyColor(new Color(160,160,160));
     }
   }

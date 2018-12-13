@@ -72,9 +72,9 @@ public class Main extends JPanel implements MouseListener{
     System.out.println ("All the countries have been chosen.");
 
     //Initially place armies
-    for (int i = 0; i < NUMPLAYERS; i++) {
+    /*for (int i = 0; i < NUMPLAYERS; i++) {
       placeArmies(playerArray[i]);
-    }
+    }*/
 
     //Game play
     order = 0;
@@ -131,6 +131,7 @@ public class Main extends JPanel implements MouseListener{
   public static void play (Player p) {
     System.out.println ("Player " + p.getMyNum() + "'s turn.");
     placeArmies(p);
+    
     attack(p);
   }
 
@@ -144,13 +145,13 @@ public class Main extends JPanel implements MouseListener{
   //MOUSE LISTENER
   public static void placeArmies(Player p) {
     int count = p.countNumArmiesToCollect();
-    System.out.println ("You can place " + count + " armies.");
+    System.out.println ("Player " + p.getMyNum() + ", you can place " + count + " armies.");
     System.out.println ("Would you like to cash in your " + p.getNumCards() + " cards for " + p.getNumCards() + " armies? (Y/N)");
     String input = keyboard.nextLine();
     if (input == "Y") {
       count += cashCards(p);
     }
-    
+
     Country tempC;
     System.out.println ("Click on a country to place an army there.");
     for (int i = 0; i < count; i++) {
@@ -232,7 +233,7 @@ public class Main extends JPanel implements MouseListener{
         AUse3 = A1;
       }
     }
-
+    System.out.println();
     int D1 = (int)(Math.random()*5+1.0);
     System.out.print ("Player " + tempD.getOwner() + " rolled " + D1);
     int D2 = 0;

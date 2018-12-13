@@ -133,7 +133,7 @@ public class Main extends JPanel implements MouseListener{
     placeArmies(p);
     System.out.println ("Would you like to attack? (Y/N)");
     String temp = keyboard.nextLine();
-    while (temp == "Y") {
+    while (temp != "N") {
       attack(p);
       System.out.println ("Would you like to attack? (Y/N)");
       temp = keyboard.nextLine();

@@ -28,7 +28,6 @@ public class Player {
 // CONSTRUCTOR
   public Player (int i) {
     this.numCountries = 0;
-    this.numContinents = 0;
     this.numCards = 0;
     this.numArmies = 0;
     MYNUM = i;
@@ -57,52 +56,63 @@ public class Player {
   }
 
 // =============================================================================
-// addCard(): setter method for numCards 
+// addCard(): setter method for numCards
   public void addCard () {
     numCards++;
   }
 
 // =============================================================================
-// getNumArmies()
+// getNumArmies(): getter method for numArmies
   public int getNumArmies() {
     return numArmies;
   }
 
+// =============================================================================
+// addArmies(): setter method for numArmies, increases by specified amount
   public void addArmies (int i) {
     numArmies += i;
   }
 
-  //Can only redeem all cards at once
+// =============================================================================
+// subtractCards(): setter method for numArmies, resets number of cards to 0
   public void subtractCards () {
     numCards = 0;
   }
 
+// =============================================================================
+// getNumCards(): getter method for numCards
   public int getNumCards () {
     return numCards;
   }
 
+// =============================================================================
+// addCountry(): setter method for numCountries, increments by 1
   public void addCountry() {
     numCountries++;
   }
 
+// =============================================================================
+// subtractCountry(): setter method for numCountries, decrements by 1
   public void subtractCountry() {
     numCountries--;
   }
 
+// =============================================================================
+// getNumCountries(): getter method for numCountries
   public int getNumCountries() {
     return numCountries;
   }
 
-  public int getNumContinents() {
-    return numContinents;
-  }
-
+// =============================================================================
+// getMyColor(): getter method for MYPLAYERCOLOR
   public Color getMyColor () {
     return MYPLAYERCOLOR;
   }
 
-  public int countNumArmiesToCollect (/*something*/) {
-    return (numCountries/3 + numContinents);
+// =============================================================================
+// countNumArmiesToCollect(): counts number of armies for Player to collect
+  public int countNumArmiesToCollect () {
+    return (numCountries/3);
   }
 
 }

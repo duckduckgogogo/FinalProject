@@ -50,7 +50,7 @@ public class Main extends JPanel implements MouseListener{
 // =============================================================================
 // main(): plays game
   public static void main (String[] args) {
-    //JFrame
+    // JFrame
     JFrame frame = new JFrame ("Risky Business.");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     mainInstance = new Main();
@@ -58,7 +58,7 @@ public class Main extends JPanel implements MouseListener{
     frame.pack();
     frame.setVisible(true);
 
-    //Initialize playerArray[]: size specified by user
+    // Initialize playerArray[]: size specified by user
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
     Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
     final int NUMPLAYERS = (int)numPlayersDialog;
@@ -67,7 +67,7 @@ public class Main extends JPanel implements MouseListener{
       playerArray[i] = new Player(i);
     }
 
-    //Players alternate claiming a Country until all the Countries are claimed
+    // Players alternate claiming a Country until all the Countries are claimed
     System.out.println ("Click on a country to claim it. Rotate between players until all countries are claimed.");
     int tempC;
     while (w.isAllClaimed(w.countriesArray) == false) {
@@ -90,7 +90,7 @@ public class Main extends JPanel implements MouseListener{
     }
     System.out.println ("All countries have been claimed.");
 
-    //Players alternate turns until one player owns every country
+    // Players alternate turns until one player owns every country
     int order = 0;
     while (GAMEOVER == false) {
       play(playerArray[order]);
@@ -362,22 +362,26 @@ public class Main extends JPanel implements MouseListener{
     return true;
   }
 // =============================================================================
+// mouseClicked()
   @Override
   public void mouseClicked(MouseEvent e) {
     mainInstance.repaint();
   }
 
 // =============================================================================
+// mouseEntered()
   @Override
   public void mouseEntered(MouseEvent e) {
   }
 
 // =============================================================================
+// mouseExited()
   @Override
   public void mouseExited(MouseEvent e) {
   }
 
 // =============================================================================
+// mousePressed()
   @Override
   public void mousePressed(MouseEvent e) {
     mouseX = e.getX();
@@ -385,6 +389,7 @@ public class Main extends JPanel implements MouseListener{
   }
 
 // =============================================================================
+// mouseReleased()
   @Override
   public void mouseReleased(MouseEvent e) {
     mainInstance.repaint();

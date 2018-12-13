@@ -48,6 +48,7 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		addMouseListener(this);
 	}
 
+<<<<<<< HEAD
 	// =============================================================================
 	// main(): plays game
 	public static void main(String[] args) {
@@ -58,7 +59,20 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
+=======
+// =============================================================================
+// main(): plays game
+  public static void main (String[] args) {
+    // JFrame
+    JFrame frame = new JFrame ("Risky Business.");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    mainInstance = new Main();
+    frame.setContentPane(mainInstance);
+    frame.pack();
+    frame.setVisible(true);
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 
+<<<<<<< HEAD
 		// Initialize playerArray[]: size specified by user
 		Object[] numPlayerOptions = { 2, 3, 4, 5, 6 };
 		Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players",
@@ -68,7 +82,18 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		for (int i = 0; i < NUMPLAYERS; i++) {
 			playerArray[i] = new Player(i);
 		}
+=======
+    // Initialize playerArray[]: size specified by user
+    Object[] numPlayerOptions = {2, 3, 4, 5, 6};
+    Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
+    final int NUMPLAYERS = (int)numPlayersDialog;
+    Player[] playerArray = new Player[NUMPLAYERS];
+    for (int i = 0; i < NUMPLAYERS; i++) {
+      playerArray[i] = new Player(i);
+    }
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 
+<<<<<<< HEAD
 		// Players alternate claiming a Country until all the Countries are claimed
 		System.out.println("Click on a country to claim it. Rotate between players until all countries are claimed.");
 		int tempC;
@@ -91,7 +116,32 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 		System.out.println("All countries have been claimed.");
+=======
+    // Players alternate claiming a Country until all the Countries are claimed
+    System.out.println ("Click on a country to claim it. Rotate between players until all countries are claimed.");
+    int tempC;
+    while (w.isAllClaimed(w.countriesArray) == false) {
+        for (int j = 0; j < NUMPLAYERS; j++) {
+        	System.out.println("Please select a country you wish to claim, Player " + (j + 1) + ".");
+        	tempC = chooseCountry();
+        	while (w.countriesArray[tempC].getOwner() != 10) {
+        		tempC = chooseCountry();
+        		System.out.println ("That country has already been claimed by another player.");
+        	}
+        	w.countriesArray[tempC].setOwner(j);
+        	w.countriesArray[tempC].addArmy(5);
+        	//DEBUG: System.out.println(w.countriesArray[tempC].getOwner());
+        	System.out.println("Player " + (j + 1) + " has claimed " +  w.countriesArray[tempC].getName() + ".");
+        	playerArray[j].addCountry();
+        	if (w.isAllClaimed(w.countriesArray)) {
+        	  break;
+        	}
+        }
+    }
+    System.out.println ("All countries have been claimed.");
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 
+<<<<<<< HEAD
 		// Players alternate turns until one player owns every country
 		int order = 0;
 		while (GAMEOVER == false) {
@@ -100,6 +150,16 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 			checkWin();
 		}
 	}
+=======
+    // Players alternate turns until one player owns every country
+    int order = 0;
+    while (GAMEOVER == false) {
+      play(playerArray[order]);
+      order = endTurn(order);
+      checkWin();
+    }
+  }
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 
 	// =============================================================================
 	// paintComponent()
@@ -341,6 +401,7 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		b.addArmy(t);
 	}
 
+<<<<<<< HEAD
 	// =============================================================================
 	// endTurn(): toggles Player turn
 	public static int endTurn(int o) {
@@ -349,7 +410,27 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		}
 		return o++;
 	}
+=======
+// =============================================================================
+// checkWin(): checks if one Player owns every country
+  public static void checkWin() {
+    int o = w.countriesArray[0].getOwner();
+    for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
+      if (o != w.countriesArray[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+// =============================================================================
+// mouseClicked()
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    mainInstance.repaint();
+  }
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 
+<<<<<<< HEAD
 	// =============================================================================
 	// checkWin(): checks if one Player owns every country
 	public static void checkWin() {
@@ -361,18 +442,44 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		}
 		return true;
 	}
+=======
+// =============================================================================
+// mouseEntered()
+  @Override
+  public void mouseEntered(MouseEvent e) {
+  }
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 
+<<<<<<< HEAD
 	// =============================================================================
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		mainInstance.repaint();
 	}
+=======
+// =============================================================================
+// mouseExited()
+  @Override
+  public void mouseExited(MouseEvent e) {
+  }
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 
+<<<<<<< HEAD
 	// =============================================================================
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
+=======
+// =============================================================================
+// mousePressed()
+  @Override
+  public void mousePressed(MouseEvent e) {
+    mouseX = e.getX();
+    mouseY = e.getY();
+  }
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 
+<<<<<<< HEAD
 	// =============================================================================
 	@Override
 	public void mouseExited(MouseEvent e) {
@@ -408,4 +515,14 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 	}
 }
 
+=======
+// =============================================================================
+// mouseReleased()
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    mainInstance.repaint();
+  }
+>>>>>>> branch 'master' of git@github.com:duckduckgogogo/FinalProject.git
 }
+// class Main
+// =============================================================================

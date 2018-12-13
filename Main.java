@@ -71,11 +71,6 @@ public class Main extends JPanel implements MouseListener{
     }
     System.out.println ("All the countries have been chosen.");
 
-    //Initially place armies
-    /*for (int i = 0; i < NUMPLAYERS; i++) {
-      placeArmies(playerArray[i]);
-    }*/
-
     //Game play
     order = 0;
     while (GAMEOVER == false) {
@@ -83,8 +78,6 @@ public class Main extends JPanel implements MouseListener{
       order = endTurn(order);
     }
 
-    //Graphics g;
-    //w.drawCountries(g);
   }
 
   //WHAT DOES PAINTCOMPONENT DO?

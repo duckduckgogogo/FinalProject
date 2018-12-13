@@ -145,10 +145,12 @@ public class Main extends JPanel implements MouseListener{
   public static void placeArmies(Player p) {
     int count = p.countNumArmiesToCollect();
     System.out.println ("You can place " + count + " armies.");
-    System.out.println ("Would you like to cash in your " + p.getNumCards() + " cards for " + p.getNumCards() + " armies?");
-
-    //If true...
-    count += cashCards(p);
+    System.out.println ("Would you like to cash in your " + p.getNumCards() + " cards for " + p.getNumCards() + " armies? (Y/N)");
+    String input = keyboard.nextLine();
+    if (input == "Y") {
+      count += cashCards(p);
+    }
+    
     Country tempC;
     System.out.println ("Click on a country to place an army there.");
     for (int i = 0; i < count; i++) {

@@ -59,7 +59,7 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		frame.setContentPane(mainInstance);
 		frame.pack();
 		frame.setVisible(true);
-		
+
 		// Initialize playerArray[]: size specified by user
 		Object[] numPlayerOptions = { 2, 3, 4, 5, 6 };
 		Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players",
@@ -159,11 +159,17 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		System.out.println("Would you like to move your armies around? (Y/N)");
 		temp = keyboard.next();
 		while (temp.equals("Y")) {
-			System.out.println("Choose a country to move the army from.");
+			System.out.println("Choose a country from which to move your armies.");
 			Country temp1 = w.countriesArray[chooseCountry()];
-			System.out.println("Choose a country to move the army from.");
+			System.out.println("Choose a country to which to move your armies.");
 			Country temp2 = w.countriesArray[chooseCountry()];
-
+      while ((temp1.getOwner() != p.getMyNum()) || (temp2.getOwner() != p.getMyNum()) || !(w.isConnected(temp1.getArrayPos(), temp2.getArrayPos()))) {
+        System.out.println ("Invalid: Please move your armies between 2 of your adjacent countries.");
+        System.out.println("Choose a country from which to move your armies.");
+  			temp1 = w.countriesArray[chooseCountry()];
+  			System.out.println("Choose a country to which to move your armies.");
+  			temp2 = w.countriesArray[chooseCountry()];
+      }
 			moveArmies(temp1,temp2);
 			System.out.println("Would you like to move your armies around? (Y/N)");
 			temp = keyboard.next();
@@ -320,6 +326,7 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 			DLoss++;
 		}
 		// Clear fallen soldiers from the battlefield
+    System.out.println ("You have lost " + ALoss + " armies. Your enemy has lost " + DLoss + " armies.");
 		tempA.subtractArmy(ALoss);
 		tempD.subtractArmy(DLoss);
 		// Player moves armies to conquered country, Player can collect a card at
@@ -335,7 +342,8 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 	// moveArmies(): Player moves armies between 2 of their countries, using
 	// MouseListener
 	public static void moveArmies(Country a, Country b) {
-		System.out.println("You have " + a.getNumArmies() + " armies on " + a.getName()
+    System.out.println();
+    System.out.println("You have " + a.getNumArmies() + " armies on " + a.getName()
 				+ ". How many armies would you like to move to " + b.getName() + "?");
 		int t = keyboard.nextInt();
 		while ((t < 2) || (t > a.getNumArmies() - 1)) {

@@ -1,3 +1,14 @@
+// =============================================================================
+/**
+* Main contains the primary game playing functions and mouse listener
+*
+* @author Ashira Mawji & Shu Amano
+**/
+// =============================================================================
+
+
+// =============================================================================
+// IMPORTS
 import java.util.Scanner;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -10,7 +21,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.lang.Math;
 
+// =============================================================================
 public class Main extends JPanel implements MouseListener{
+
+// =============================================================================
+// INSTANCE FIELDS
   static int mouseX;
   static int mouseY;
   final int HEIGHT = 600;
@@ -18,19 +33,24 @@ public class Main extends JPanel implements MouseListener{
   public static Scanner keyboard = new Scanner (System.in);
   static World w;
   static boolean GAMEOVER = false;
-  static int state = 0; //Necessary?
+  static int state = 0;
   static int NUMPLAYERS;
   static Graphics g;
   static Main mainInstance;
+  static boolean canGetCard = false;
 
+// =============================================================================
+// CONSTRUCTOR
   public Main () {
     w = new World();
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     addMouseListener(this);
   }
 
+// =============================================================================
+// main(): plays game
   public static void main (String[] args) {
-    //Frame
+    //JFrame
     JFrame frame = new JFrame ("Risky Business.");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     mainInstance = new Main();
@@ -38,7 +58,7 @@ public class Main extends JPanel implements MouseListener{
     frame.pack();
     frame.setVisible(true);
 
-    //Initialize playerArray
+    //Initialize playerArray[]: size specified by user
     Object[] numPlayerOptions = {2, 3, 4, 5, 6};
     Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players", JOptionPane.PLAIN_MESSAGE, null, numPlayerOptions, numPlayerOptions[0]);
     final int NUMPLAYERS = (int)numPlayersDialog;
@@ -47,9 +67,8 @@ public class Main extends JPanel implements MouseListener{
       playerArray[i] = new Player(i);
     }
 
-    //Initial assignment of countries to players
-    System.out.println ("Players take turns claiming a country.");
-    int order = 0;
+    //Players alternate claiming a Country until all the Countries are claimed
+    System.out.println ("Click on a country to claim it. Rotate between players until all countries are claimed.");
     int tempC;
     while (w.isAllClaimed(w.countriesArray) == false) {
         for (int j = 0; j < NUMPLAYERS; j++) {
@@ -61,7 +80,7 @@ public class Main extends JPanel implements MouseListener{
         	}
         	w.countriesArray[tempC].setOwner(j);
         	w.countriesArray[tempC].addArmy(5);
-        	System.out.println(w.countriesArray[tempC].getOwner());
+        	//DEBUG: System.out.println(w.countriesArray[tempC].getOwner());
         	System.out.println("Player " + (j + 1) + " has claimed " +  w.countriesArray[tempC].getName() + ".");
         	playerArray[j].addCountry();
         	if (w.isAllClaimed(w.countriesArray)) {
@@ -69,18 +88,19 @@ public class Main extends JPanel implements MouseListener{
         	}
         }
     }
-    System.out.println ("All the countries have been chosen.");
+    System.out.println ("All countries have been claimed.");
 
-    //Game play
-    order = 0;
+    //Players alternate turns until one player owns every country
+    int order = 0;
     while (GAMEOVER == false) {
       play(playerArray[order]);
       order = endTurn(order);
+      checkWin();
     }
-
   }
 
-  //WHAT DOES PAINTCOMPONENT DO?
+// =============================================================================
+// paintComponent()
   public void paintComponent (Graphics g) {
     super.paintComponent(g);
     g.setColor(Color.BLACK);
@@ -89,14 +109,13 @@ public class Main extends JPanel implements MouseListener{
     w.drawAllConnections(g);
   }
 
-  //SHU: MOUSE ACTION LISTENER
+// =============================================================================
+// chooseCountry(): Player selects a country as detected by MouseListener
   public static int chooseCountry(){
     mouseX = -1;
     mouseY = -1;
-
     int tempX = -1;
     int tempY = -1;
-
     while (true) {
       if ((mouseX == tempX) && (mouseY == tempY)) {
         try {
@@ -111,16 +130,17 @@ public class Main extends JPanel implements MouseListener{
         for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
           int x = w.countriesArray[i].getPosX();
           int y = w.countriesArray[i].getPosY();
-          // CHANGE COUNTRY HEIGHT VALUE
           if (w.countriesArray[i].isIn(mouseX,mouseY)) {
         	  return i;
           }
         }
-        System.out.println("That is not a country. Please click on a country.");
+        System.out.println("Invalid country: Please select a country.");
       }
     }
   }
 
+// =============================================================================
+// play(): Player collects armies, places armies, attacks, and moves armies
   public static void play (Player p) {
     System.out.println ("Player " + p.getMyNum() + "'s turn.");
     placeArmies(p);
@@ -128,6 +148,7 @@ public class Main extends JPanel implements MouseListener{
     String temp = keyboard.nextLine();
     while (temp != "N") {
       attack(p);
+      System.out.println();
       System.out.println ("Would you like to attack? (Y/N)");
       temp = keyboard.nextLine();
     }
@@ -138,39 +159,49 @@ public class Main extends JPanel implements MouseListener{
       System.out.println ("Would you like to move your armies around? (Y/N)");
       temp = keyboard.nextLine();
     }
-    System.out.println ("Your turn is over.");
+    System.out.println ("Your turn is over. You have collected a card.");
+    p.addCard();
   }
 
-  //Cash cards: add armies, subtract cards
+// =============================================================================
+//cashCards(): exchanges all of Player's cards for additional armies
   public static int cashCards(Player p) {
     int i = p.getNumCards();
     p.subtractCards();
     return i;
   }
 
-  //MOUSE LISTENER
+// =============================================================================
+// placeArmies(): tallies how many armies Player can collect, gives Player the
+// option to cash in their cards for additional armies, Player places armies
   public static void placeArmies(Player p) {
+    //Tallies how many armies Player can collect
     int count = p.countNumArmiesToCollect();
     System.out.println ("Player " + p.getMyNum() + ", you can place " + count + " armies.");
+    //Option to exchange cards for additional armies
     System.out.println ("Would you like to cash in your " + p.getNumCards() + " cards for " + p.getNumCards() + " armies? (Y/N)");
     String input = keyboard.nextLine();
     if (input == "Y") {
       count += cashCards(p);
     }
-
+    //Player places armies on their countries, using MouseListener
     Country tempC;
     System.out.println ("Click on a country to place an army there.");
     for (int i = 0; i < count; i++) {
-      System.out.println ("HI");
+      //DEBUG: System.out.println ("HI");
       tempC = w.countriesArray[chooseCountry()];
       while (tempC.getOwner() != p.getMyNum()) {
-        System.out.println ("Choose one of your own countries.");
+        System.out.println ("Invalid: Please choose one of your own countries.");
         tempC = w.countriesArray[chooseCountry()];
       }
       tempC.addArmy(1);
     }
   }
 
+// =============================================================================
+// attack(): Player chooses a country from which to attack and a country to
+// attack, dice determine how many armies each country loses, if Player conquers
+// Country then Player moves armies there
   public static void attack(Player p) {
     System.out.println ("Choose a country from which to attack. ");
     Country tempA = w.countriesArray[chooseCountry()];
@@ -180,8 +211,8 @@ public class Main extends JPanel implements MouseListener{
     }
     System.out.println ("Choose a country to attack. ");
     Country tempD = w.countriesArray[chooseCountry()];
-    while (tempD.getOwner() == p.getMyNum() /* || Connection*/) {
-      System.out.println ("Invalid: Choose someone else's country to attack.");
+    while ((tempD.getOwner() == p.getMyNum()) || !(w.isConnected(tempA.getArrayPos(), tempD.getArrayPos()))) {
+      System.out.println ("Invalid: Attack an adjacent country owned by another Player.");
       tempD = w.countriesArray[chooseCountry()];
     }
 
@@ -282,6 +313,11 @@ public class Main extends JPanel implements MouseListener{
 
     if (tempD.getNumArmies() < 1) {
       moveArmies(tempA, tempD);
+      tempD.setOwner(tempA.getOwner());
+      canGetCard = true;
+      if (canGetCard == true) {
+
+      }
     }
   }
 
@@ -289,7 +325,8 @@ public class Main extends JPanel implements MouseListener{
     System.out.println ("You have " + a.getNumArmies() + " armies. How many armies would you like to move from " + a.getName() + " to " + b.getName() + "?");
     int t = keyboard.nextInt();
     while ((t < 2) || (t > a.getNumArmies()-1)) {
-      System.out.println ("Invalid number of armies: Please choose a number between 1 and " + (a.getNumArmies()-1));
+      System.out.println ("Invalid: Move between 1 and " + (a.getNumArmies()-1) + " armies.");
+      t = keyboard.nextInt();
     }
     a.subtractArmy(t);
     b.addArmy(t);
@@ -303,6 +340,13 @@ public class Main extends JPanel implements MouseListener{
   }
 
   public static void checkWin() {
+    int o = w.countriesArray[0].getOwner();
+    for (int i = 0; i < w.TOTALNUMCOUNTRIES; i++) {
+      if (o != w.countriesArray[i]) {
+        return false;
+      }
+    }
+    return true;
   }
 
   @Override

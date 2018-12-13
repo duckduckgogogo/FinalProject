@@ -1,22 +1,25 @@
+// =============================================================================
+/**
+* Objects of the Card class track their owner.
+*
+* @author Ashira Mawji & Shu Amano
+**/
+// =============================================================================
+
+
+
+// =============================================================================
+// IMPORTS
+
 public class Card {
   final private int COUNTRY;
-  //final private int NUMSTARS;
   private boolean available;
-  private int owner = 10;
+  private int owner;
 
-  public Card (int a /*, int b*/) {
+  public Card (int a) {
+    this.owner = 10;
     this.COUNTRY = a;
-    this.available = true;
-    //this.NUMSTARS = b;
   }
-
-  public int getCountry () {
-    return COUNTRY;
-  }
-
-  /*public int getNumStars() {
-    return NUMSTARS;
-  }*/
 
   public boolean getAvailability() {
     return available;
@@ -29,11 +32,5 @@ public class Card {
   public void setOwner (int i) {
     owner = i;
   }
-
-  /*
-  public void drawCard() {
-
-  }
-  */
 
 }

@@ -131,8 +131,9 @@ public class Main extends JPanel implements MouseListener{
   public static void play (Player p) {
     System.out.println ("Player " + p.getMyNum() + "'s turn.");
     placeArmies(p);
-    
+    System.out.println ("Would you like to attack? (Y/N)")
     attack(p);
+    ""
   }
 
   //Cash cards: add armies, subtract cards

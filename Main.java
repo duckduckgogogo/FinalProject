@@ -60,7 +60,6 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		frame.pack();
 		frame.setVisible(true);
 
-
 		// Initialize playerArray[]: size specified by user
 		Object[] numPlayerOptions = { 2, 3, 4, 5, 6 };
 		Object numPlayersDialog = JOptionPane.showInputDialog(null, "Number of players?", "Number of Players",
@@ -93,7 +92,6 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 		System.out.println("All countries have been claimed.");
-
 
 		// Players alternate turns until one player owns every country
 		int order = 0;

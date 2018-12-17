@@ -236,13 +236,13 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 			System.out.println("Invalid: Attack an adjacent country occupied by another Player.");
 			tempD = w.countriesArray[chooseCountry()];
 		}
-		System.out.println("Player " + tempA.getOwner() + " attacking Player " + tempD.getOwner() + " from "
+		System.out.println("Player " + tempA.getOwner()+1 + " attacking Player " + tempD.getOwner()+1 + " from "
 				+ tempA.getName() + " to " + tempD.getName() + ".");
 		// Dice determine how many armies each country loses, number of dice
 		// determined by number of armies on country
 		// Attacking country's dice
 		int A1 = (int) (Math.random() * 5 + 1.0);
-		System.out.print("Player " + tempA.getOwner() + " rolled " + A1);
+		System.out.print("Player " + tempA.getOwner()+1 + " rolled " + A1);
 		int A2 = 0;
 		int A3 = 0;
 		// Order dice based on face value
@@ -293,7 +293,7 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 		System.out.println();
 		// Defending country's dice
 		int D1 = (int) (Math.random() * 5 + 1.0);
-		System.out.print("Player " + tempD.getOwner() + " rolled " + D1);
+		System.out.print("Player " + tempD.getOwner()+1 + " rolled " + D1);
 		int D2 = 0;
 		if (tempD.getNumArmies() > 1) {
 			D2 = (int) (Math.random() * 5 + 1.0);
@@ -326,6 +326,7 @@ public class Main extends JPanel implements MouseListener, KeyListener {
 			DLoss++;
 		}
 		// Clear fallen soldiers from the battlefield
+		System.out.println();
     System.out.println ("You have lost " + ALoss + " armies. Your enemy has lost " + DLoss + " armies.");
 		tempA.subtractArmy(ALoss);
 		tempD.subtractArmy(DLoss);
